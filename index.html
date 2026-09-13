@@ -28,7 +28,9 @@
   --f-lat:'Cormorant Garamond',Georgia,'Times New Roman',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* overflow-x 必须同时写在 html 与 body 上：只写 body 时，部分移动端浏览器
+   （iOS Safari 等）不会真正把视口裁掉，横向溢出那一截会变成可滑动的空白条 */
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   font-family:var(--f-serif);
   background:var(--paper);
@@ -558,6 +560,11 @@ body.xdj .d-seal{
 }
 body.xdj .d-en{color:var(--red);font-weight:900;letter-spacing:.2em}
 body.xdj .d-date{border:3px solid var(--ink);font-weight:700;background:#fffbe8}
+/* 这一层是横向溢出的唯一来源：inset:-34% 让它比 .d-stage(min(380px,82vw)) 每侧还宽出
+   0.34×380≈129px，右侧那一截会撑宽文档（mask 在 74% 处渐隐，所以多出来的正好是空白）
+   → 手机端右侧出现空白条。在 .daily（整幅 section）这一层裁掉：
+   光芒依然横贯整屏，但不再撑宽文档 */
+body.xdj .daily{overflow:hidden}
 body.xdj .d-stage::before{
   content:'';position:absolute;inset:-34%;border-radius:50%;
   background:repeating-conic-gradient(from 0deg at 50% 50%,
