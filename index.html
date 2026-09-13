@@ -457,16 +457,26 @@ body.xdj{
   background:var(--paper);
 }
 
-/* —— 漫画集中线：英雄区 + 每日一味 —— */
-body.xdj .hero::before,
-body.xdj .daily::before{
-  content:'';position:absolute;inset:-25%;pointer-events:none;z-index:0;
+/* —— 漫画集中线：铺满整个第一屏，放射中心 = 碗心 —— */
+/* --ray-x / --ray-y / --ray-r 由 JS 按碗的实际位置算（见文末 IIFE）
+   本层是「以光心为圆心、边长 2×--ray-r 的正方形」：
+   ① conic 中心、② mask 中心、③ transform-origin 三者恒为 50% 50% → 旋转时光心不漂移
+   ③ --ray-r 取到 hero 四角的最大距离 → 转到任意角度都能盖满整屏，不会露出直角边
+   不要把这个层挂回 .dish：那样尺寸被碗的盒子限制，铺不满屏 */
+body.xdj .hero::before{
+  content:'';position:absolute;pointer-events:none;z-index:0;
+  left:var(--ray-x,74%);top:var(--ray-y,52%);
+  width:calc(var(--ray-r,1200px) * 2);height:calc(var(--ray-r,1200px) * 2);
+  margin-left:calc(var(--ray-r,1200px) * -1);margin-top:calc(var(--ray-r,1200px) * -1);
   background:repeating-conic-gradient(from 0deg at 50% 50%,
-    rgba(232,52,31,.16) 0deg 1.6deg, transparent 1.6deg 6deg);
-  animation:spin 90s linear infinite;
+    rgba(232,52,31,.17) 0deg 1.4deg, transparent 1.4deg 5.4deg);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,
+    transparent 3%, rgba(0,0,0,.45) 12%, #000 40%, rgba(0,0,0,.85) 60%, transparent 71%);
+  mask-image:radial-gradient(circle at 50% 50%,
+    transparent 3%, rgba(0,0,0,.45) 12%, #000 40%, rgba(0,0,0,.85) 60%, transparent 71%);
+  transform-origin:50% 50%;
+  animation:spin 100s linear infinite;
 }
-body.xdj .daily{position:relative;overflow:hidden}
-body.xdj .daily::before{opacity:.5}
 body.xdj .hero>.container,
 body.xdj .daily>.container{position:relative;z-index:1}
 
@@ -543,11 +553,11 @@ body.xdj .d-seal{
 body.xdj .d-en{color:var(--red);font-weight:900;letter-spacing:.2em}
 body.xdj .d-date{border:3px solid var(--ink);font-weight:700;background:#fffbe8}
 body.xdj .d-stage::before{
-  content:'';position:absolute;inset:-16%;border-radius:50%;
+  content:'';position:absolute;inset:-34%;border-radius:50%;
   background:repeating-conic-gradient(from 0deg at 50% 50%,
-    rgba(255,198,26,.55) 0deg 3deg, transparent 3deg 9deg);
-  -webkit-mask-image:radial-gradient(circle,#000 40%,transparent 72%);
-  mask-image:radial-gradient(circle,#000 40%,transparent 72%);
+    rgba(255,198,26,.62) 0deg 2.6deg, transparent 2.6deg 8deg);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 20%, rgba(0,0,0,.85) 44%, transparent 74%);
+  mask-image:radial-gradient(circle at 50% 50%, #000 20%, rgba(0,0,0,.85) 44%, transparent 74%);
   animation:spin 26s linear infinite;
 }
 body.xdj .ring{opacity:.3}
@@ -555,7 +565,12 @@ body.xdj .feat-dish svg{
   filter:drop-shadow(0 0 12px rgba(255,198,26,.95)) drop-shadow(0 0 30px rgba(255,140,0,.5));
   animation:dishPop .7s cubic-bezier(.2,1.5,.4,1) both;
 }
-@keyframes dishPop{from{opacity:0;transform:scale(.86) translateY(10px)}to{opacity:1;transform:none}}
+/* 关键：.feat-dish svg 靠 transform:translate(-50%,-50%) 居中，
+   关键帧里必须原样带上这个位移，写 transform:none 会让菜在动画结束后掉到右下角 */
+@keyframes dishPop{
+  from{opacity:0;transform:translate(-50%,-50%) scale(.86) translateY(10px)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}
+}
 body.xdj .d-name{
   color:#ffe45c;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;
   text-shadow:3px 4px 0 rgba(61,26,8,.4), 0 0 24px rgba(255,198,26,.5);
@@ -1733,6 +1748,41 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
   /* 保险：无论脚本放在按钮前还是后都能挂上事件 */
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
   else{init();}
+})();
+
+/* 漫画集中线的放射中心：按「碗」的实际位置算，供 body.xdj .hero::before 用
+   纯 CSS 拿不到元素坐标，所以这里算好 --ray-x / --ray-y / --ray-r 三个变量写到 .hero 上 */
+(function(){
+  var hero=document.querySelector('.hero');
+  var dish=document.querySelector('.hero .dish');
+  if(!hero||!dish)return;
+  function sync(){
+    var h=hero.getBoundingClientRect(), d=dish.getBoundingClientRect();
+    if(!h.width||!h.height)return;
+    var cx=d.left+d.width/2-h.left, cy=d.top+d.height/2-h.top;
+    /* 半径取光心到 hero 四角的最大距离，保证旋转到任意角度都盖满整屏 */
+    var r=Math.max(
+      Math.sqrt(cx*cx+cy*cy),
+      Math.sqrt((h.width-cx)*(h.width-cx)+cy*cy),
+      Math.sqrt(cx*cx+(h.height-cy)*(h.height-cy)),
+      Math.sqrt((h.width-cx)*(h.width-cx)+(h.height-cy)*(h.height-cy))
+    );
+    hero.style.setProperty('--ray-x',(cx/h.width*100).toFixed(2)+'%');
+    hero.style.setProperty('--ray-y',(cy/h.height*100).toFixed(2)+'%');
+    hero.style.setProperty('--ray-r',Math.ceil(r*1.06)+'px');
+  }
+  var pending=false;
+  function schedule(){
+    if(pending)return;pending=true;
+    requestAnimationFrame(function(){pending=false;sync();});
+  }
+  sync();
+  window.addEventListener('resize',schedule);
+  window.addEventListener('load',schedule);
+  /* 字体加载完会改变排版，再补算一次 */
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(schedule);}
+  /* 每日一味换菜、栏目切换等导致高度变化时也重算 */
+  if(window.ResizeObserver){new ResizeObserver(schedule).observe(hero);}
 })();
 </script>
 </body>
