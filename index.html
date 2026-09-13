@@ -66,7 +66,7 @@ nav{
   transform:rotate(-4deg);box-shadow:inset 0 0 0 1.5px rgba(246,239,225,.35);
 }
 .logo small{font-family:var(--f-lat);font-style:italic;font-weight:500;color:var(--ink-2);letter-spacing:.08em;font-size:.72rem;margin-left:.2rem}
-.nav-links{display:flex;gap:2rem;font-size:.92rem;letter-spacing:.14em}
+.nav-links{display:flex;align-items:center;gap:2rem;font-size:.92rem;letter-spacing:.14em}
 .nav-links a{position:relative;padding:.3rem 0;color:var(--ink-2);transition:color .3s}
 .nav-links a::after{content:'';position:absolute;left:50%;bottom:0;width:0;height:2px;background:var(--red);transition:all .3s}
 .nav-links a:hover{color:var(--red)}
@@ -419,21 +419,21 @@ footer{padding:5.5rem 0 2rem;text-align:center}
    风格切换按钮（两种风格下都在）
    ========================================================== */
 .style-switch{
-  position:fixed;right:18px;bottom:18px;z-index:200;
-  display:flex;align-items:center;gap:.5rem;cursor:pointer;
-  font:inherit;font-size:.85rem;font-weight:700;letter-spacing:.1em;
-  padding:.6rem 1rem;border:2px solid var(--ink);border-radius:999px;
+  display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;flex:none;
+  font:inherit;font-size:.78rem;font-weight:700;letter-spacing:.08em;white-space:nowrap;
+  padding:.38rem .85rem;border:2px solid var(--ink);border-radius:999px;
   background:var(--paper);color:var(--ink);
-  box-shadow:3px 4px 0 rgba(42,32,24,.5);
-  transition:transform .3s, background .35s, color .35s, box-shadow .35s;
+  box-shadow:2px 3px 0 rgba(42,32,24,.45);
+  transition:transform .28s, background .35s, color .35s, box-shadow .35s, border-color .35s;
 }
 .style-switch:hover{transform:translateY(-2px)}
-.style-switch:active{transform:translateY(1px);box-shadow:1px 2px 0 rgba(42,32,24,.5)}
-.style-switch .ss-ico{width:18px;height:18px;display:block;flex:none}
+.style-switch:active{transform:translateY(1px);box-shadow:1px 2px 0 rgba(42,32,24,.45)}
+.style-switch .ss-ico{width:16px;height:16px;display:block;flex:none}
 .style-switch .ss-ico svg{width:100%;height:100%}
 @media (max-width:640px){
-  .style-switch{right:12px;bottom:12px;padding:.6rem}
+  .style-switch{padding:.34rem .5rem;gap:0}
   .style-switch .ss-txt{display:none}
+  .nav-links{gap:1.1rem}
 }
 
 /* ==========================================================
@@ -646,7 +646,7 @@ body.xdj .f-bar{border-top:4px solid var(--ink);font-weight:700}
 /* —— 切换按钮在小当家模式下的配色 —— */
 body.xdj .style-switch{
   background:var(--red);color:#ffe45c;border-color:var(--ink);
-  box-shadow:3px 4px 0 rgba(61,26,8,.8);
+  box-shadow:2px 3px 0 rgba(61,26,8,.8);
 }
 body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
 </style>
@@ -660,6 +660,16 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
     <div class="nav-links">
       <a href="#daily">每日一味</a>
       <a href="#columns">寻味栏目</a>
+      <!-- 风格切换：水墨志 ↔ 中华小当家（必须在脚本之前，否则取不到元素） -->
+      <button type="button" class="style-switch" id="styleSwitch" aria-pressed="false" title="切换页面风格">
+        <span class="ss-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6l1.9 4.6 4.6 1.9-4.6 1.9L12 15.6l-1.9-4.6L5.5 9.1l4.6-1.9z"/>
+            <path d="M18.6 15.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>
+          </svg>
+        </span>
+        <span class="ss-txt">小当家模式</span>
+      </button>
     </div>
   </div>
 </nav>
@@ -1627,17 +1637,6 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
     </div>
   </div>
 </footer>
-
-<!-- 风格切换：水墨志 ↔ 中华小当家（必须在脚本之前，否则取不到元素） -->
-<button type="button" class="style-switch" id="styleSwitch" aria-pressed="false" title="切换页面风格">
-  <span class="ss-ico" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2.6l1.9 4.6 4.6 1.9-4.6 1.9L12 15.6l-1.9-4.6L5.5 9.1l4.6-1.9z"/>
-      <path d="M18.6 15.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>
-    </svg>
-  </span>
-  <span class="ss-txt">小当家模式</span>
-</button>
 
 <script>
 /* 每日一味：按当天日期轮换 */
