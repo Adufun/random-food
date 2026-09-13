@@ -414,6 +414,241 @@ footer{padding:5.5rem 0 2rem;text-align:center}
   .rv{opacity:1;transform:none}
   .puff{opacity:.5}
 }
+
+/* ==========================================================
+   风格切换按钮（两种风格下都在）
+   ========================================================== */
+.style-switch{
+  position:fixed;right:18px;bottom:18px;z-index:200;
+  display:flex;align-items:center;gap:.5rem;cursor:pointer;
+  font:inherit;font-size:.85rem;font-weight:700;letter-spacing:.1em;
+  padding:.6rem 1rem;border:2px solid var(--ink);border-radius:999px;
+  background:var(--paper);color:var(--ink);
+  box-shadow:3px 4px 0 rgba(42,32,24,.5);
+  transition:transform .3s, background .35s, color .35s, box-shadow .35s;
+}
+.style-switch:hover{transform:translateY(-2px)}
+.style-switch:active{transform:translateY(1px);box-shadow:1px 2px 0 rgba(42,32,24,.5)}
+.style-switch .ss-ico{width:18px;height:18px;display:block;flex:none}
+.style-switch .ss-ico svg{width:100%;height:100%}
+@media (max-width:640px){
+  .style-switch{right:12px;bottom:12px;padding:.6rem}
+  .style-switch .ss-txt{display:none}
+}
+
+/* ==========================================================
+   风格 B · 中华小当家（热血中华料理漫画）
+   视觉语言：集中线 / 金光爆闪 / 粗黑描边 / 硬阴影 / 拟声词
+   仅视觉致敬，不描绘任何具体作品角色
+   启用：给 body 加 class="xdj"
+   ========================================================== */
+body.xdj{
+  --paper:#fff3d0;
+  --paper-2:#ffeab4;
+  --card:#fffbe8;
+  --ink:#3d1a08;
+  --ink-2:#8a5a2b;
+  --line:rgba(61,26,8,.32);
+  --red:#e8341f;
+  --red-2:#b8160a;
+  --gold:#ffc61a;
+  --gold-2:#ffe45c;
+  --f-serif:'Microsoft YaHei','PingFang SC','Hiragino Sans GB','Heiti SC','Noto Sans SC',sans-serif;
+  background:var(--paper);
+}
+
+/* —— 漫画集中线：英雄区 + 每日一味 —— */
+body.xdj .hero::before,
+body.xdj .daily::before{
+  content:'';position:absolute;inset:-25%;pointer-events:none;z-index:0;
+  background:repeating-conic-gradient(from 0deg at 50% 50%,
+    rgba(232,52,31,.16) 0deg 1.6deg, transparent 1.6deg 6deg);
+  animation:spin 90s linear infinite;
+}
+body.xdj .daily{position:relative;overflow:hidden}
+body.xdj .daily::before{opacity:.5}
+body.xdj .hero>.container,
+body.xdj .daily>.container{position:relative;z-index:1}
+
+/* —— 主视觉：会发光的碗 —— */
+body.xdj .bowl-svg{
+  filter:drop-shadow(0 0 14px rgba(255,198,26,.95)) drop-shadow(0 0 34px rgba(255,140,0,.5));
+}
+body.xdj .bg-char{color:rgba(232,52,31,.1);-webkit-text-stroke:3px rgba(61,26,8,.2)}
+body.xdj .orbit text{fill:rgba(61,26,8,.75)}
+
+/* —— 标题：金红描边 —— */
+body.xdj h1.vt{
+  color:#ffe45c;
+  -webkit-text-stroke:3px #3d1a08;
+  paint-order:stroke fill;
+  text-shadow:4px 5px 0 rgba(61,26,8,.35), 0 0 26px rgba(255,198,26,.55);
+}
+body.xdj h1.vt .r{color:#ffd23f}
+body.xdj .eyebrow{color:var(--red);font-weight:900;letter-spacing:.16em}
+body.xdj .side-note p,
+body.xdj .tagline{color:var(--ink-2);font-weight:700}
+body.xdj .side-note .vline{width:4px;background:linear-gradient(var(--red),var(--gold))}
+body.xdj .seal{
+  border-radius:8px;
+  box-shadow:inset 0 0 0 3px rgba(255,228,92,.55), 3px 4px 0 rgba(61,26,8,.85);
+}
+body.xdj .hero-stats{border-top:4px solid var(--ink)}
+body.xdj .hero-stats>div{border-right:2px solid var(--line)}
+body.xdj .hero-stats b{
+  color:var(--gold);font-weight:900;
+  -webkit-text-stroke:2px var(--ink);paint-order:stroke fill;
+  text-shadow:3px 3px 0 rgba(61,26,8,.3);
+}
+
+/* —— 跑马灯：红底金字 —— */
+body.xdj .marquee{background:var(--red);border-top:4px solid var(--ink);border-bottom:4px solid var(--ink)}
+body.xdj .track{animation-duration:26s}
+body.xdj .track em{
+  color:#ffe45c;font-weight:900;
+  text-shadow:2px 2px 0 var(--ink),-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink);
+}
+body.xdj .track i{color:#fff3d0}
+
+/* —— 八大菜系：粗框硬阴影分镜格 —— */
+body.xdj .cu-grid{gap:14px;background:transparent;border:none}
+body.xdj .cu{
+  border:3px solid var(--ink);background:var(--card);
+  box-shadow:5px 5px 0 rgba(61,26,8,.8);
+}
+body.xdj .cu:hover{
+  transform:translateY(-8px) rotate(-1.2deg);
+  background:#fffdf2;box-shadow:9px 11px 0 rgba(61,26,8,.9);
+}
+body.xdj .cu .big{color:rgba(232,52,31,.13);-webkit-text-stroke:3px rgba(61,26,8,.13)}
+body.xdj .cu h3{font-weight:900}
+body.xdj .cu .tagline-tag{border:2px solid var(--ink);border-radius:0;font-weight:700}
+body.xdj .cu:hover .tagline-tag{background:var(--red);color:#ffe45c}
+body.xdj .cu-dishes{border-top:2px dashed rgba(61,26,8,.25)}
+body.xdj .cu:hover .ic{transform:scale(1.2) rotate(-6deg)}
+
+/* —— 每日一味：发光料理台 —— */
+body.xdj .daily-frame{
+  border:4px solid var(--ink);outline:3px solid var(--gold);outline-offset:6px;
+  box-shadow:8px 9px 0 rgba(61,26,8,.8);
+  background:
+    radial-gradient(360px 240px at 50% 44%, rgba(255,198,26,.5), transparent 70%),
+    var(--card);
+}
+body.xdj .corner{border-width:4px;border-color:var(--red)}
+body.xdj .d-seal{
+  background:var(--red);border:3px solid var(--ink);border-radius:8px;color:#ffe45c;font-weight:700;
+  box-shadow:3px 4px 0 rgba(61,26,8,.75);
+}
+body.xdj .d-en{color:var(--red);font-weight:900;letter-spacing:.2em}
+body.xdj .d-date{border:3px solid var(--ink);font-weight:700;background:#fffbe8}
+body.xdj .d-stage::before{
+  content:'';position:absolute;inset:-16%;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg at 50% 50%,
+    rgba(255,198,26,.55) 0deg 3deg, transparent 3deg 9deg);
+  -webkit-mask-image:radial-gradient(circle,#000 40%,transparent 72%);
+  mask-image:radial-gradient(circle,#000 40%,transparent 72%);
+  animation:spin 26s linear infinite;
+}
+body.xdj .ring{opacity:.3}
+body.xdj .feat-dish svg{
+  filter:drop-shadow(0 0 12px rgba(255,198,26,.95)) drop-shadow(0 0 30px rgba(255,140,0,.5));
+  animation:dishPop .7s cubic-bezier(.2,1.5,.4,1) both;
+}
+@keyframes dishPop{from{opacity:0;transform:scale(.86) translateY(10px)}to{opacity:1;transform:none}}
+body.xdj .d-name{
+  color:#ffe45c;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;
+  text-shadow:3px 4px 0 rgba(61,26,8,.4), 0 0 24px rgba(255,198,26,.5);
+}
+body.xdj .d-name .r{color:#ffd23f}
+body.xdj .d-note{font-weight:700}
+body.xdj .d-note i{color:var(--red);font-weight:900}
+
+/* —— 漫画元素：拟声词爆框 + 闪光星 —— */
+.bang,.spark{display:none}
+body.xdj .bang{
+  display:block;position:absolute;left:-16px;top:42%;width:116px;z-index:3;
+  transform:rotate(-12deg);pointer-events:none;
+  animation:bangPop .6s cubic-bezier(.2,1.7,.4,1) .35s both;
+}
+body.xdj .bang svg{width:100%;filter:drop-shadow(3px 4px 0 rgba(61,26,8,.5))}
+body.xdj .bang b{
+  position:absolute;left:0;right:0;top:50%;transform:translateY(-56%);
+  text-align:center;font-size:1rem;font-weight:900;color:var(--red);
+  -webkit-text-stroke:2px var(--ink);paint-order:stroke fill;letter-spacing:.04em;
+}
+@keyframes bangPop{
+  from{opacity:0;transform:rotate(-12deg) scale(.35)}
+  to{opacity:1;transform:rotate(-12deg) scale(1)}
+}
+body.xdj .spark{
+  display:block;position:absolute;z-index:3;color:var(--gold);pointer-events:none;
+  -webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill;
+  animation:twinkle 2.2s ease-in-out infinite;
+}
+body.xdj .spark.s1{top:15%;left:11%;font-size:1.5rem;animation-delay:0s}
+body.xdj .spark.s2{top:25%;right:13%;font-size:1.1rem;animation-delay:.55s}
+body.xdj .spark.s3{bottom:21%;left:15%;font-size:1.25rem;animation-delay:1.1s}
+body.xdj .spark.s4{bottom:29%;right:10%;font-size:.95rem;animation-delay:1.65s}
+@keyframes twinkle{
+  0%,100%{opacity:.2;transform:scale(.7) rotate(0deg)}
+  50%{opacity:1;transform:scale(1.18) rotate(20deg)}
+}
+@media (max-width:760px){
+  body.xdj .bang{display:none}
+  body.xdj .spark.s1,body.xdj .spark.s4{display:none}
+}
+
+/* —— 栏目 tab：漫画分镜格 —— */
+body.xdj .cols-head{border-bottom:4px solid var(--ink)}
+body.xdj .cols-sub{
+  color:#ffe45c;font-size:.9rem;font-weight:900;
+  -webkit-text-stroke:2px var(--ink);paint-order:stroke fill;
+}
+body.xdj .col-tab{
+  border:3px solid var(--ink);background:var(--card);color:var(--ink);
+  padding:.45rem 1.1rem;margin-bottom:-4px;font-weight:900;
+  transform:skewX(-9deg);box-shadow:3px 3px 0 rgba(61,26,8,.8);
+}
+body.xdj .col-tab i{display:none}
+body.xdj .col-tab:hover{background:#fff3d0;color:var(--red)}
+body.xdj .col-tab.on{background:var(--red);color:#ffe45c}
+body.xdj .col-lead{font-weight:700}
+body.xdj .col-lead .vol{
+  color:var(--red);-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill;font-weight:900;
+}
+
+/* —— 街头巷尾：小吃卡 —— */
+body.xdj .snack{
+  border:3px solid var(--ink);box-shadow:4px 5px 0 rgba(61,26,8,.75);
+}
+body.xdj .snack:hover{
+  transform:translateY(-7px) rotate(1deg);
+  border-color:var(--ink);box-shadow:8px 10px 0 rgba(61,26,8,.85);
+}
+body.xdj .ftag{border:2px solid var(--ink);border-radius:0;font-weight:700;color:var(--red);background:transparent}
+body.xdj .fl{border:2px solid var(--ink);border-radius:0;font-weight:700;color:var(--red)}
+
+/* —— 节气食单：暗色金 —— */
+body.xdj .col-dark{background:#2b1206;border:4px solid var(--ink);box-shadow:6px 7px 0 rgba(61,26,8,.55)}
+body.xdj .se-grid{gap:12px;background:transparent;border:none}
+body.xdj .se{
+  border:3px solid rgba(255,228,92,.35);background:#2b1206;
+  box-shadow:4px 5px 0 rgba(0,0,0,.35);
+}
+body.xdj .se:hover{background:#3a1a09}
+body.xdj .se .wm{color:rgba(255,228,92,.16)}
+body.xdj .s-en{color:var(--gold-2);font-weight:700}
+
+/* —— 页脚 —— */
+body.xdj .f-bar{border-top:4px solid var(--ink);font-weight:700}
+
+/* —— 切换按钮在小当家模式下的配色 —— */
+body.xdj .style-switch{
+  background:var(--red);color:#ffe45c;border-color:var(--ink);
+  box-shadow:3px 4px 0 rgba(61,26,8,.8);
+}
+body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
 </style>
 </head>
 <body>
@@ -531,6 +766,19 @@ footer{padding:5.5rem 0 2rem;text-align:center}
       <span class="corner c-bl" aria-hidden="true"></span>
       <span class="corner c-br" aria-hidden="true"></span>
       <span class="d-seal" aria-hidden="true">今日轮值</span>
+
+      <!-- 漫画元素：拟声词爆炸框 + 闪光星（仅小当家风格显示） -->
+      <span class="bang" aria-hidden="true">
+        <svg viewBox="0 0 130 108">
+          <path d="M65,3 L79,26 L104,19 L99,45 L126,54 L101,70 L112,95 L83,88 L70,105 L57,86 L28,96 L35,70 L7,60 L31,43 L22,18 L52,27 Z"
+                fill="#ffe45c" stroke="#3d1a08" stroke-width="4.5" stroke-linejoin="round"/>
+        </svg>
+        <b>唰——！</b>
+      </span>
+      <span class="spark s1" aria-hidden="true">✦</span>
+      <span class="spark s2" aria-hidden="true">✦</span>
+      <span class="spark s3" aria-hidden="true">✧</span>
+      <span class="spark s4" aria-hidden="true">✦</span>
 
       <p class="d-en">Dish of the Day · 每日一味</p>
       <p class="d-date" id="dailyDate">今日 · 八味轮值</p>
@@ -1380,6 +1628,17 @@ footer{padding:5.5rem 0 2rem;text-align:center}
   </div>
 </footer>
 
+<!-- 风格切换：水墨志 ↔ 中华小当家（必须在脚本之前，否则取不到元素） -->
+<button type="button" class="style-switch" id="styleSwitch" aria-pressed="false" title="切换页面风格">
+  <span class="ss-ico" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2.6l1.9 4.6 4.6 1.9-4.6 1.9L12 15.6l-1.9-4.6L5.5 9.1l4.6-1.9z"/>
+      <path d="M18.6 15.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>
+    </svg>
+  </span>
+  <span class="ss-txt">小当家模式</span>
+</button>
+
 <script>
 /* 每日一味：按当天日期轮换 */
 (function(){
@@ -1449,6 +1708,32 @@ footer{padding:5.5rem 0 2rem;text-align:center}
   for(var k=0;k<tabs.length;k++){
     tabs[k].addEventListener('click',function(){activate(this.getAttribute('data-panel'));});
   }
+})();
+
+/* 风格切换：水墨志 ↔ 中华小当家（选择记在本地） */
+(function(){
+  var KEY='foodpage-style';
+  function init(){
+    var btn=document.getElementById('styleSwitch');
+    if(!btn)return;
+    var txt=btn.querySelector('.ss-txt');
+    function apply(mode,save){
+      var on=(mode==='xdj');
+      document.body.classList.toggle('xdj',on);
+      btn.setAttribute('aria-pressed',on?'true':'false');
+      if(txt){txt.textContent=on?'水墨模式':'小当家模式';}
+      if(save){try{localStorage.setItem(KEY,mode);}catch(e){}}
+    }
+    var saved=null;
+    try{saved=localStorage.getItem(KEY);}catch(e){}
+    apply(saved==='xdj'?'xdj':'ink',false);
+    btn.addEventListener('click',function(){
+      apply(document.body.classList.contains('xdj')?'ink':'xdj',true);
+    });
+  }
+  /* 保险：无论脚本放在按钮前还是后都能挂上事件 */
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}
+  else{init();}
 })();
 </script>
 </body>
