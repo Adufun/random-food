@@ -51,9 +51,11 @@ section{scroll-margin-top:90px}
 }
 
 /* ============ 导航 ============ */
-/* 注意：这是元素选择器，页面内任何 <nav> 都会被钉死在视口顶端。
-   其它导航容器请用 <div role="tablist"> 之类的写法，别用 <nav> */
-nav{
+/* 顶部导航用 class 选择器 .topbar，不再用元素选择器 nav{}：
+   以前 nav{position:fixed} 会让页面内任何新增 <nav> 都被钉死在视口顶端
+   （09-12「滑到第三屏分栏整排吸顶」的 bug 就是这么来的）。
+   改用 .topbar 后彻底解耦，页面里再加 <nav> 也不会被意外命中。 */
+.topbar{
   position:fixed;top:0;left:0;right:0;z-index:100;height:64px;
   background:rgba(246,239,225,.85);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
@@ -172,11 +174,14 @@ h1.vt .r{color:var(--red)}
   transition:transform .45s cubic-bezier(.2,.8,.3,1), background .45s, box-shadow .45s;
 }
 .cu:hover{transform:translateY(-6px);background:#fff9ef;box-shadow:0 22px 34px -24px rgba(42,32,24,.35);z-index:2}
+/* 装饰大字必须落在 .cu 的 padding box 内 —— 卡片是 overflow:hidden 的。
+   以前 right:-14px / bottom:-42px 是负偏移，右下角会被容器直接裁掉（缺笔）。
+   现改为正偏移并留出余量，hover 的放大旋转也不会溢出被切。 */
 .cu .big{
-  position:absolute;right:-14px;bottom:-42px;font-family:var(--f-cal);font-size:9.5rem;line-height:1;
+  position:absolute;right:14px;bottom:10px;font-family:var(--f-cal);font-size:9.5rem;line-height:1;
   color:rgba(42,32,24,.07);transition:color .45s, transform .45s;pointer-events:none;
 }
-.cu:hover .big{color:rgba(178,58,42,.17);transform:scale(1.06) rotate(-3deg)}
+.cu:hover .big{color:rgba(178,58,42,.17);transform:scale(1.04) rotate(-2.5deg)}
 /* 菜系卡片手绘矢量底纹 */
 .defs{position:absolute;width:0;height:0;overflow:hidden}
 .cu .bg-art{
@@ -301,11 +306,12 @@ h1.vt .r{color:var(--red)}
   transition:background .45s;
 }
 .se:hover{background:#2a1e10}
+/* 同 .cu .big：.se 也是 overflow:hidden，水印字的负偏移会被容器切掉右下角 */
 .se .wm{
-  position:absolute;right:-16px;bottom:-34px;font-family:var(--f-cal);font-size:9rem;line-height:1;
+  position:absolute;right:14px;bottom:10px;font-family:var(--f-cal);font-size:9rem;line-height:1;
   color:rgba(216,160,74,.13);transition:color .45s, transform .45s;pointer-events:none;
 }
-.se:hover .wm{color:rgba(216,160,74,.3);transform:rotate(-4deg) scale(1.05)}
+.se:hover .wm{color:rgba(216,160,74,.3);transform:rotate(-3deg) scale(1.04)}
 .s-en{font-family:var(--f-lat);font-style:italic;letter-spacing:.32em;font-size:.78rem;color:var(--gold-2)}
 .se h3{font-size:1.28rem;font-weight:700;letter-spacing:.05em;margin:.55rem 0 1.1rem}
 .se li{
@@ -388,7 +394,7 @@ footer{padding:5.5rem 0 2rem;text-align:center}
   .se-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:640px){
-  .nav-links{display:none}
+  .nav-links a{display:none}
   .title-row{gap:1.4rem}
   .side-note .vline{display:none}
   .hero-stats{gap:1.2rem;flex-wrap:wrap}
@@ -669,7 +675,7 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
 <body>
 <div class="grain" aria-hidden="true"></div>
 
-<nav>
+<nav class="topbar">
   <div class="nav-in">
     <a class="logo" href="#top"><span class="mini-seal">食</span>食味人间<small>A Journal of Chinese Flavours</small></a>
     <div class="nav-links">
@@ -1227,15 +1233,16 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
 
     <div class="cols-head rv">
       <span class="cols-sub">寻味栏目<i>Columns</i></span>
+      <!-- roving tabindex：只有当前选中项 tabindex=0 可被 Tab 聚焦，其余为 -1，改由方向键漫游 -->
       <div class="col-tabs" role="tablist" aria-label="栏目切换">
-        <button type="button" class="col-tab on" role="tab" aria-selected="true" data-panel="p-cuisines">八大菜系<i>Eight Great Cuisines</i></button>
-        <button type="button" class="col-tab" role="tab" aria-selected="false" data-panel="p-snacks">街头巷尾<i>Street Food</i></button>
-        <button type="button" class="col-tab" role="tab" aria-selected="false" data-panel="p-seasonal">节气食单<i>Solar Terms</i></button>
+        <button type="button" class="col-tab on" id="tab-cuisines" role="tab" aria-selected="true" aria-controls="p-cuisines" tabindex="0" data-panel="p-cuisines">八大菜系<i>Eight Great Cuisines</i></button>
+        <button type="button" class="col-tab" id="tab-snacks" role="tab" aria-selected="false" aria-controls="p-snacks" tabindex="-1" data-panel="p-snacks">街头巷尾<i>Street Food</i></button>
+        <button type="button" class="col-tab" id="tab-seasonal" role="tab" aria-selected="false" aria-controls="p-seasonal" tabindex="-1" data-panel="p-seasonal">节气食单<i>Solar Terms</i></button>
       </div>
     </div>
 
     <div class="col-panels">
-    <section class="col-panel on" id="p-cuisines" role="tabpanel">
+    <section class="col-panel on" id="p-cuisines" role="tabpanel" aria-labelledby="tab-cuisines">
       <p class="col-lead"><span class="vol">Vol.01</span>一菜一格，百菜百味。鲁川粤苏浙闽湘徽，是中国人的味觉地图。</p>
     <svg class="defs" aria-hidden="true">
       <defs>
@@ -1421,7 +1428,7 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
     </div>
     </section>
 
-    <section class="col-panel" id="p-snacks" role="tabpanel">
+    <section class="col-panel" id="p-snacks" role="tabpanel" aria-labelledby="tab-snacks">
       <p class="col-lead"><span class="vol">Vol.02</span>最好的味道，往往不在菜单上，而在清晨的雾气和深夜的炭火里。</p>
     <div class="snack-row">
       <article class="snack rv" style="--d:0s">
@@ -1585,7 +1592,7 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
     </div>
     </section>
 
-    <section class="col-panel col-dark" id="p-seasonal" role="tabpanel">
+    <section class="col-panel col-dark" id="p-seasonal" role="tabpanel" aria-labelledby="tab-seasonal">
       <p class="col-lead"><span class="vol">Vol.03</span>不时不食。中国人的餐桌，跟着节气走。</p>
     <div class="se-grid">
       <article class="se rv" style="--d:0s">
@@ -1699,7 +1706,7 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
 
 /* 寻味栏目：三档切换 */
 (function(){
-  var tabs=document.querySelectorAll('.col-tab');
+  var tabs=[].slice.call(document.querySelectorAll('.col-tab'));
   if(!tabs.length)return;
   var panels=document.querySelectorAll('.col-panel');
   function activate(name){
@@ -1708,6 +1715,8 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
       var on=tabs[i].getAttribute('data-panel')===name;
       tabs[i].classList[on?'add':'remove']('on');
       tabs[i].setAttribute('aria-selected',on?'true':'false');
+      /* roving tabindex：选中项才能被 Tab 聚焦，其余交给方向键 */
+      tabs[i].setAttribute('tabindex',on?'0':'-1');
     }
     for(i=0;i<panels.length;i++){
       if(panels[i].id===name){
@@ -1719,8 +1728,24 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
       }
     }
   }
+  /* 键盘漫游：← →（含 ↑ ↓）循环切换，Home / End 跳首尾；焦点跟着选中项走 */
+  function onKey(e){
+    var cur=tabs.indexOf(document.activeElement);
+    if(cur<0)return;
+    var n=tabs.length,next=-1;
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'){next=(cur+1)%n;}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){next=(cur-1+n)%n;}
+    else if(e.key==='Home'){next=0;}
+    else if(e.key==='End'){next=n-1;}
+    else{return;}
+    e.preventDefault();
+    var target=tabs[next];
+    activate(target.getAttribute('data-panel'));
+    target.focus();
+  }
   for(var k=0;k<tabs.length;k++){
     tabs[k].addEventListener('click',function(){activate(this.getAttribute('data-panel'));});
+    tabs[k].addEventListener('keydown',onKey);
   }
 })();
 
