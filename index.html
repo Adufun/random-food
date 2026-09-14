@@ -170,9 +170,11 @@ h1.vt .r{color:var(--red)}
   display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
   background:var(--line);border:1px solid var(--line);
 }
+/* 整张卡片是 <a>，可直接中键/新标签打开，也能被搜索引擎当真实链接抓取 */
 .cu{
   position:relative;overflow:hidden;background:var(--paper);
-  padding:1.5rem 1.5rem 3.6rem;min-height:236px;
+  padding:1.5rem 1.5rem 3.6rem;min-height:312px;
+  display:block;color:inherit;text-decoration:none;
   transition:transform .45s cubic-bezier(.2,.8,.3,1), background .45s, box-shadow .45s;
 }
 .cu:hover{transform:translateY(-6px);background:#fff9ef;box-shadow:0 22px 34px -24px rgba(42,32,24,.35);z-index:2}
@@ -194,7 +196,18 @@ h1.vt .r{color:var(--red)}
 }
 .cu:hover .bg-art{transform:scale(1.08) rotate(-1.5deg)}
 .cu .big{z-index:1}
-.cu-top,.cu h3,.cu .dish,.cu .note{position:relative;z-index:2}
+.cu-top,.cu h3,.cu .dish,.cu .note,.cu .cu-more{position:relative;z-index:2}
+/* 「进入专栏 →」落在左下角，与右下角的装饰大字互不干扰 */
+.cu .cu-more{
+  position:absolute;left:1.5rem;bottom:1.15rem;
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.8rem;font-weight:700;letter-spacing:.08em;color:var(--red);
+  opacity:.7;transition:opacity .35s, gap .35s;
+}
+.cu .cu-more i{font-style:normal;transition:transform .35s cubic-bezier(.2,.8,.3,1)}
+.cu:hover .cu-more,.cu:focus-visible .cu-more{opacity:1;gap:.7rem}
+.cu:hover .cu-more i,.cu:focus-visible .cu-more i{transform:translateX(4px)}
+.cu:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 .cu-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem}
 .cu .no{font-family:var(--f-lat);font-style:italic;font-weight:600;color:var(--red);letter-spacing:.05em}
 .cu .tagline-tag{
@@ -544,6 +557,8 @@ body.xdj .cu .tagline-tag{border:2px solid var(--ink);border-radius:0;font-weigh
 body.xdj .cu:hover .tagline-tag{background:var(--red);color:#ffe45c}
 body.xdj .cu-dishes{border-top:2px dashed rgba(61,26,8,.25)}
 body.xdj .cu:hover .ic{transform:scale(1.2) rotate(-6deg)}
+body.xdj .cu .cu-more{font-weight:900;letter-spacing:.12em;opacity:.85}
+body.xdj .cu:hover .cu-more{opacity:1}
 
 /* —— 每日一味：发光料理台 —— */
 body.xdj .daily-frame{
@@ -1235,6 +1250,73 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <path d="M8,24 q4,-11 12,-8 q9,3 12,8 q-6,7 -12,7 q-8,0 -12,-7 Z"/>
           <path d="M12,18 l-2,-4 M18,15 l-1,-4 M24,15 l1,-4 M30,18 l2,-4" stroke-width="1.5"/>
         </symbol>
+        <!-- 卤味 / 肚片 -->
+        <symbol id="ic-tripe" viewBox="0 0 40 40">
+          <path d="M7,25 h26 a13,13 0 0,1 -26,0 Z"/>
+          <path d="M11,21 q4,-6 8,-1 q4,5 8,-1" stroke-width="1.6"/>
+          <path d="M13,15 q3,-5 7,-1" stroke-width="1.4"/>
+        </symbol>
+        <!-- 牛 -->
+        <symbol id="ic-beef" viewBox="0 0 40 40">
+          <path d="M11,13 q-3,7 0,13 q9,4 18,0 q3,-6 0,-13 Z"/>
+          <path d="M11,13 q-5,-3 -6,-7 q6,0 8,4" stroke-width="1.6"/>
+          <path d="M29,13 q5,-3 6,-7 q-6,0 -8,4" stroke-width="1.6"/>
+          <circle cx="16" cy="20" r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="24" cy="20" r="1.4" fill="currentColor" stroke="none"/>
+          <path d="M17,27 q3,2 6,0" stroke-width="1.5"/>
+        </symbol>
+        <!-- 蛋 -->
+        <symbol id="ic-egg" viewBox="0 0 40 40">
+          <path d="M7,23 q1,-8 8,-10 q6,-2 10,2 q7,3 6,9 q-1,6 -8,7 q-9,1 -16,-3 Z"/>
+          <circle cx="19" cy="22" r="4.6"/>
+        </symbol>
+        <!-- 鳝 / 鳗 -->
+        <symbol id="ic-eel" viewBox="0 0 40 40">
+          <path d="M7,29 q5,-12 12,-9 q8,4 14,-7"/>
+          <path d="M32,14 q4,-3 4,2 q0,4 -5,3" stroke-width="1.6"/>
+          <path d="M7,29 l-3,4 6,-2" stroke-width="1.6"/>
+          <circle cx="30" cy="15" r="1.2" fill="currentColor" stroke="none"/>
+        </symbol>
+        <!-- 贝 / 蚝 -->
+        <symbol id="ic-clam" viewBox="0 0 40 40">
+          <path d="M20,30 q-12,0 -13,-10 q13,-7 26,0 q-1,10 -13,10 Z"/>
+          <path d="M20,30 v-10 M13,29 l4,-8 M27,29 l-4,-8" stroke-width="1.5"/>
+        </symbol>
+        <!-- 糕点 / 甜品 -->
+        <symbol id="ic-cake" viewBox="0 0 40 40">
+          <path d="M8,21 h24 a12,12 0 0,1 -24,0 Z"/>
+          <path d="M11,21 q2,-9 9,-9 t9,9" stroke-width="1.6"/>
+          <circle cx="20" cy="13" r="1.6" fill="currentColor" stroke="none"/>
+        </symbol>
+        <!-- 鲍 / 螺 -->
+        <symbol id="ic-abalone" viewBox="0 0 40 40">
+          <circle cx="20" cy="21" r="11"/>
+          <path d="M20,13 a8,8 0 1,1 -7.9,13.4" stroke-width="1.8"/>
+          <path d="M20,18 a3.5,3.5 0 1,1 -3.4,5.9" stroke-width="1.6"/>
+        </symbol>
+        <!-- 排骨 -->
+        <symbol id="ic-ribs" viewBox="0 0 40 40">
+          <path d="M9,13 q11,-4 21,3"/>
+          <path d="M12,16 l-3,10 M19,16 l-2,11 M26,17 l2,11 M31,19 l3,9" stroke-width="1.7"/>
+        </symbol>
+        <!-- 腊味 -->
+        <symbol id="ic-sausage" viewBox="0 0 40 40">
+          <path d="M11,11 q4,10 3,21" stroke-width="2.8"/>
+          <path d="M20,10 q4,11 3,22" stroke-width="2.8"/>
+          <path d="M29,11 q4,10 3,21" stroke-width="2.8"/>
+        </symbol>
+        <!-- 砂锅 / 一品锅 -->
+        <symbol id="ic-pot" viewBox="0 0 40 40">
+          <path d="M6,19 h28 v5 a14,14 0 0,1 -28,0 Z"/>
+          <path d="M3,19 h34" stroke-width="1.8"/>
+          <path d="M15,13 q2,-4 4,-1 M23,13 q2,-4 4,-1" stroke-width="1.5"/>
+        </symbol>
+        <!-- 串 / 炸物 -->
+        <symbol id="ic-skewer" viewBox="0 0 40 40">
+          <path d="M11,33 l17,-24" stroke-width="1.6"/>
+          <circle cx="23" cy="18" r="4.6"/>
+          <circle cx="16" cy="28" r="4"/>
+        </symbol>
       </defs>
     </svg>
 
@@ -1336,7 +1418,7 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
       </defs>
     </svg>
     <div class="cu-grid">
-      <article class="cu rv" style="--d:0s">
+      <a class="cu rv" style="--d:0s" href="cuisine-chuan.html" aria-label="川菜专栏 · 麻辣鲜香，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-chuan)"/></svg>
         <span class="big" aria-hidden="true">川</span>
         <div class="cu-top"><span class="no">No.01</span><span class="tagline-tag">麻辣鲜香</span></div>
@@ -1345,10 +1427,16 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <li><svg class="ic" aria-hidden="true"><use href="#ic-tofu"/></svg>麻婆豆腐</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-chicken"/></svg>宫保鸡丁</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-fish"/></svg>水煮鱼</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg>回锅肉</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-tripe"/></svg>夫妻肺片</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-bamboo"/></svg>鱼香肉丝</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-hotpot"/></svg>四川火锅</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-noodle"/></svg>担担面</li>
         </ul>
         <p class="note">一勺豆瓣，半城烟火</p>
-      </article>
-      <article class="cu rv" style="--d:.06s">
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
+      <a class="cu rv" style="--d:.06s" href="cuisine-yue.html" aria-label="粤菜专栏 · 清而不淡，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-yue)"/></svg>
         <span class="big" aria-hidden="true">粤</span>
         <div class="cu-top"><span class="no">No.02</span><span class="tagline-tag">清而不淡</span></div>
@@ -1357,10 +1445,16 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <li><svg class="ic" aria-hidden="true"><use href="#ic-chicken"/></svg>白切鸡</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-dumpling"/></svg>虾饺</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-duck"/></svg>烧鹅</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg>蜜汁叉烧</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-fish"/></svg>清蒸石斑</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-soup"/></svg>老火靓汤</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-beef"/></svg>干炒牛河</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-rice"/></svg>肠粉</li>
         </ul>
         <p class="note">食不厌精，脍不厌细</p>
-      </article>
-      <article class="cu rv" style="--d:.12s">
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
+      <a class="cu rv" style="--d:.12s" href="cuisine-lu.html" aria-label="鲁菜专栏 · 咸鲜醇厚，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-lu)"/></svg>
         <span class="big" aria-hidden="true">鲁</span>
         <div class="cu-top"><span class="no">No.03</span><span class="tagline-tag">咸鲜醇厚</span></div>
@@ -1368,11 +1462,17 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
         <ul class="cu-dishes">
           <li><svg class="ic" aria-hidden="true"><use href="#ic-seacucumber"/></svg>葱烧海参</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-fish"/></svg>糖醋鲤鱼</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg>九转大肠</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-tripe"/></svg>九转大肠</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-shrimp"/></svg>油焖大虾</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-meatball"/></svg>四喜丸子</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-chicken"/></svg>德州扒鸡</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-egg"/></svg>木须肉</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-greens"/></svg>奶汤蒲菜</li>
         </ul>
         <p class="note">宫廷菜脉，北方之魂</p>
-      </article>
-      <article class="cu rv" style="--d:.18s">
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
+      <a class="cu rv" style="--d:.18s" href="cuisine-su.html" aria-label="苏菜专栏 · 清雅微甜，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-su)"/></svg>
         <span class="big" aria-hidden="true">苏</span>
         <div class="cu-top"><span class="no">No.04</span><span class="tagline-tag">清雅微甜</span></div>
@@ -1381,10 +1481,16 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <li><svg class="ic" aria-hidden="true"><use href="#ic-fish"/></svg>松鼠桂鱼</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-duck"/></svg>盐水鸭</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-meatball"/></svg>蟹粉狮子头</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-tofu"/></svg>大煮干丝</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-chicken"/></svg>叫花鸡</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg>水晶肴肉</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-eel"/></svg>响油鳝糊</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-rice"/></svg>扬州炒饭</li>
         </ul>
         <p class="note">刀工如画，浓淡相宜</p>
-      </article>
-      <article class="cu rv" style="--d:.24s">
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
+      <a class="cu rv" style="--d:.24s" href="cuisine-zhe.html" aria-label="浙菜专栏 · 鲜嫩爽滑，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-zhe)"/></svg>
         <span class="big" aria-hidden="true">浙</span>
         <div class="cu-top"><span class="no">No.05</span><span class="tagline-tag">鲜嫩爽滑</span></div>
@@ -1393,10 +1499,16 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <li><svg class="ic" aria-hidden="true"><use href="#ic-fish"/></svg>西湖醋鱼</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-shrimp"/></svg>龙井虾仁</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg>东坡肉</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-soup"/></svg>宋嫂鱼羹</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-bamboo"/></svg>油焖春笋</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-skewer"/></svg>干炸响铃</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-greens"/></svg>荷叶粉蒸肉</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-crab"/></svg>醉蟹</li>
         </ul>
         <p class="note">山色入馔，湖味成诗</p>
-      </article>
-      <article class="cu rv" style="--d:.3s">
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
+      <a class="cu rv" style="--d:.3s" href="cuisine-min.html" aria-label="闽菜专栏 · 汤醇鲜和，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-min)"/></svg>
         <span class="big" aria-hidden="true">闽</span>
         <div class="cu-top"><span class="no">No.06</span><span class="tagline-tag">汤醇鲜和</span></div>
@@ -1404,11 +1516,17 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
         <ul class="cu-dishes">
           <li><svg class="ic" aria-hidden="true"><use href="#ic-soup"/></svg>佛跳墙</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg>荔枝肉</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-shrimp"/></svg>海蛎煎</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-clam"/></svg>海蛎煎</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-noodle"/></svg>沙茶面</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-cake"/></svg>太极芋泥</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-abalone"/></svg>淡糟香螺片</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-eel"/></svg>红糟鳗鱼</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-ribs"/></svg>醉排骨</li>
         </ul>
         <p class="note">坛启荤香，飘连四邻</p>
-      </article>
-      <article class="cu rv" style="--d:.36s">
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
+      <a class="cu rv" style="--d:.36s" href="cuisine-xiang.html" aria-label="湘菜专栏 · 香辣浓烈，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-xiang)"/></svg>
         <span class="big" aria-hidden="true">湘</span>
         <div class="cu-top"><span class="no">No.07</span><span class="tagline-tag">香辣浓烈</span></div>
@@ -1417,10 +1535,16 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <li><svg class="ic" aria-hidden="true"><use href="#ic-fish"/></svg>剁椒鱼头</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg>农家小炒肉</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-shrimp"/></svg>口味虾</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-sausage"/></svg>腊味合蒸</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-chicken"/></svg>东安子鸡</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-duck"/></svg>永州血鸭</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-ribs"/></svg>毛氏红烧肉</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-tofu"/></svg>长沙臭豆腐</li>
         </ul>
         <p class="note">一把剁椒，火辣人间</p>
-      </article>
-      <article class="cu rv" style="--d:.42s">
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
+      <a class="cu rv" style="--d:.42s" href="cuisine-hui.html" aria-label="徽菜专栏 · 重油浓香，查看 8 道代表菜">
         <svg class="bg-art" aria-hidden="true"><rect width="100%" height="100%" fill="url(#p-hui)"/></svg>
         <span class="big" aria-hidden="true">徽</span>
         <div class="cu-top"><span class="no">No.08</span><span class="tagline-tag">重油浓香</span></div>
@@ -1429,9 +1553,15 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <li><svg class="ic" aria-hidden="true"><use href="#ic-fish"/></svg>臭鳜鱼</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-tofu"/></svg>毛豆腐</li>
           <li><svg class="ic" aria-hidden="true"><use href="#ic-bamboo"/></svg>火腿炖鞭笋</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-hotpot"/></svg>李鸿章杂烩</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-chicken"/></svg>符离集烧鸡</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-pot"/></svg>胡氏一品锅</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-abalone"/></svg>清炖马蹄鳖</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#ic-meatball"/></svg>徽州圆子</li>
         </ul>
         <p class="note">山珍野味，古徽州味</p>
-      </article>
+        <span class="cu-more">进入专栏<i aria-hidden="true">→</i></span>
+      </a>
     </div>
     </section>
 

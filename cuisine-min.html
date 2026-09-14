@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="食味人间 · 闽菜专栏 —— 汤醇鲜和。坛启荤香，飘连四邻，附 闽菜历史渊源、口味技法与八道代表菜详解。">
+<title>闽菜专栏 · 食味人间 · 中华美食志</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%9C%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6efe1; --paper-2:#efe5d0; --card:#fbf6ea;
+  --ink:#2a2018; --ink-2:#6b5a46; --line:rgba(42,32,24,.16);
+  --red:#b23a2a; --red-2:#8e2b1e; --gold:#c8963e; --gold-2:#d8a04a;
+  --f-cal:'Ma Shan Zheng','STKaiti','KaiTi','SimSun',serif;
+  --f-serif:'Noto Serif SC','Source Han Serif SC','SimSun',serif;
+  --f-lat:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+/* 与首页同：html 与 body 都要写 overflow-x，只写 body 移动端仍会出现横向空白条 */
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  font-family:var(--f-serif);background:var(--paper);color:var(--ink);
+  line-height:1.85;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--red);color:var(--paper)}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+.container{width:min(960px,92vw);margin:0 auto}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* 纸张噪点 */
+.grain{
+  position:fixed;inset:0;z-index:150;pointer-events:none;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* ---------- 顶栏 ---------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:64px;
+  background:rgba(246,239,225,.93);backdrop-filter:blur(9px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{width:min(1180px,92vw);margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.4rem}
+.logo{display:flex;align-items:center;gap:.5rem;font-family:var(--f-cal);font-size:1.3rem;letter-spacing:.06em}
+.mini-seal{width:26px;height:26px;flex:none;display:grid;place-items:center;background:var(--red);color:#fff;font-family:var(--f-serif);font-size:.86rem;border-radius:3px}
+.logo small{font-family:var(--f-lat);font-size:.68rem;letter-spacing:.18em;color:var(--ink-2)}
+.nav-links{display:flex;align-items:center;gap:1.4rem;font-size:.88rem}
+.nav-links a{transition:color .3s}
+.nav-links a:hover{color:var(--red)}
+@media (max-width:640px){
+  .nav-links a:not(.ss-back){display:none}
+  .logo small{display:none}
+  .nav-links{gap:.9rem}
+}
+
+/* ---------- 风格切换按钮 ---------- */
+.style-switch{
+  display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;flex:none;
+  font:inherit;font-size:.76rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;
+  padding:.34rem .8rem;border:2px solid var(--ink);border-radius:999px;
+  background:var(--paper);color:var(--ink);box-shadow:2px 3px 0 rgba(42,32,24,.45);
+  transition:transform .28s, background .35s, color .35s, box-shadow .35s;
+}
+.style-switch:hover{transform:translateY(-2px)}
+.style-switch:active{transform:translateY(1px);box-shadow:1px 2px 0 rgba(42,32,24,.45)}
+.style-switch .ss-ico{width:15px;height:15px;display:block;flex:none}
+.style-switch .ss-ico svg{width:100%;height:100%}
+@media (max-width:640px){
+  .style-switch{padding:.32rem .48rem;gap:0}
+  .style-switch .ss-txt{display:none}
+}
+
+/* ---------- 专栏头图 ---------- */
+.c-hero{
+  position:relative;overflow:hidden;
+  padding:9.5rem 0 3.6rem;
+  background:
+    radial-gradient(680px 360px at 88% 18%, rgba(200,150,62,.16), transparent 72%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  border-bottom:1px solid var(--line);
+}
+.c-hero-in{position:relative}
+.c-big{
+  position:absolute;right:0;top:-3.4rem;
+  font-family:var(--f-cal);font-size:15rem;line-height:1;
+  color:rgba(42,32,24,.08);pointer-events:none;user-select:none;
+}
+.c-crumb{font-size:.8rem;letter-spacing:.14em;color:var(--ink-2)}
+.c-crumb i{font-style:normal;margin:0 .5rem;opacity:.6}
+.c-crumb a:hover{color:var(--red)}
+.c-no{font-family:var(--f-lat);font-style:italic;font-weight:600;color:var(--red);letter-spacing:.1em;margin-top:1.1rem}
+.c-hero h1{font-size:clamp(2.8rem,7vw,4.2rem);font-weight:900;letter-spacing:.08em;line-height:1.15}
+.c-hero h1 i{
+  display:block;font-family:var(--f-lat);font-style:italic;font-weight:500;
+  font-size:1.05rem;letter-spacing:.18em;color:var(--red);margin-top:.4rem;
+}
+.c-tag{
+  display:inline-block;margin-top:1.2rem;padding:.28rem 1.1rem;
+  border:1px solid rgba(178,58,42,.5);border-radius:999px;
+  font-size:.82rem;letter-spacing:.24em;color:var(--red);
+}
+.c-sub{margin-top:.9rem;font-family:var(--f-cal);font-size:1.5rem;color:var(--ink-2);letter-spacing:.08em}
+
+/* ---------- 正文版块 ---------- */
+.c-main{padding:4.2rem 0 2rem}
+.c-sec{margin-bottom:3.6rem}
+.c-h2{
+  display:flex;align-items:baseline;gap:.9rem;
+  font-size:1.5rem;font-weight:900;letter-spacing:.1em;
+  padding-bottom:.9rem;margin-bottom:1.5rem;border-bottom:1px solid var(--line);
+}
+.c-h2-no{
+  font-family:var(--f-cal);font-size:1.9rem;color:var(--red);
+  line-height:1;flex:none;
+}
+.c-body p{margin-bottom:1.1rem;color:var(--ink);text-align:justify}
+.c-lead{margin-bottom:1.6rem;font-size:1.02rem}
+.c-tags-wrap{margin-bottom:1.2rem}
+.c-tags-label{font-size:.78rem;letter-spacing:.2em;color:var(--ink-2);margin-bottom:.55rem}
+.c-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.c-tags li{
+  padding:.22rem .85rem;border:1px solid var(--line);border-radius:999px;
+  font-size:.86rem;letter-spacing:.06em;background:var(--card);transition:all .3s;
+}
+.c-tags li:hover{border-color:rgba(178,58,42,.55);color:var(--red)}
+.c-tags-alt li{background:transparent;border-style:dashed}
+
+/* 代表菜 */
+.dish-list{display:grid;gap:1rem}
+.dish-item{
+  display:flex;gap:1.1rem;align-items:flex-start;
+  padding:1.15rem 1.3rem;background:var(--card);
+  border:1px solid var(--line);
+  transition:transform .4s cubic-bezier(.2,.8,.3,1), box-shadow .4s, border-color .4s;
+}
+.dish-item:hover{transform:translateY(-3px);border-color:rgba(178,58,42,.4);box-shadow:0 16px 26px -20px rgba(42,32,24,.5)}
+.dish-ic{
+  width:38px;height:38px;flex:none;color:var(--red);
+  fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+.dish-item h3{font-size:1.08rem;font-weight:900;letter-spacing:.05em;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+.dish-no{font-family:var(--f-lat);font-style:italic;color:var(--gold);font-size:1rem;flex:none}
+.dish-item h3 i{font-family:var(--f-lat);font-style:italic;font-weight:500;font-size:.82rem;color:var(--ink-2);letter-spacing:.08em}
+.dish-item p{margin-top:.35rem;font-size:.92rem;color:var(--ink-2);line-height:1.85}
+
+/* 冷知识 */
+.trivia{counter-reset:tv;display:grid;gap:.9rem}
+.trivia li{
+  counter-increment:tv;position:relative;padding-left:3rem;
+  font-size:.95rem;color:var(--ink-2);
+}
+.trivia li::before{
+  content:counter(tv);position:absolute;left:0;top:.1rem;
+  width:2rem;height:2rem;display:grid;place-items:center;
+  font-family:var(--f-lat);font-style:italic;font-size:1rem;color:var(--red);
+  border:1px solid var(--line);border-radius:50%;
+}
+
+/* ---------- 底部导航 ---------- */
+.c-nav{border-top:1px solid var(--line);background:var(--paper-2);padding:2.2rem 0}
+.c-nav-in{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.c-nav-btn{
+  padding:.5rem 1.1rem;border:1px solid var(--line);background:var(--paper);
+  font-size:.88rem;letter-spacing:.06em;transition:all .3s;
+}
+.c-nav-btn:hover{background:var(--red);color:var(--paper);border-color:var(--red)}
+.c-nav-home{border-style:dashed}
+.c-footer{padding:2.6rem 0 3.2rem;text-align:center;border-top:1px solid var(--line)}
+.c-footer p{font-family:var(--f-cal);font-size:1.25rem;letter-spacing:.1em}
+.c-footer-sub{font-family:var(--f-serif);font-size:.8rem;color:var(--ink-2);letter-spacing:.18em;margin-top:.35rem}
+
+/* ---------- 滚动入场 ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease var(--d,0s), transform .9s cubic-bezier(.16,.84,.3,1) var(--d,0s)}
+.rv.on{opacity:1;transform:none}
+
+@media (max-width:640px){
+  .c-hero{padding:8rem 0 2.6rem}
+  .c-big{font-size:10rem;top:-2.2rem;right:-.4rem}
+  .c-main{padding:3rem 0 1rem}
+  .c-h2{font-size:1.25rem}
+  .dish-item{padding:1rem 1rem;gap:.85rem}
+  .dish-ic{width:32px;height:32px}
+  .c-nav-in{flex-direction:column}
+  .c-nav-btn{width:100%;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,.rv{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+
+/* ==========================================================
+   风格 B · 中华小当家（精简版，与首页共用同一 localStorage 键）
+   ========================================================== */
+body.xdj{
+  --paper:#fff3d0; --paper-2:#ffeab4; --card:#fffaf0;
+  --ink:#3d1a08; --ink-2:#7a4a22; --line:rgba(61,26,8,.22);
+  --red:#d5241a; --red-2:#a3140c; --gold:#ffd24a; --gold-2:#ffb300;
+}
+body.xdj .c-hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg at 82% 26%, rgba(255,210,74,.42) 0 3deg, transparent 3deg 10deg);
+  -webkit-mask-image:radial-gradient(110% 90% at 82% 26%, transparent 7%, #000 68%);
+  mask-image:radial-gradient(110% 90% at 82% 26%, transparent 7%, #000 68%);
+}
+body.xdj .c-hero{
+  background:linear-gradient(180deg,#fff3d0 0%,#ffe089 100%);
+  border-bottom:4px solid var(--ink);
+}
+body.xdj .c-big{color:rgba(61,26,8,.13)}
+body.xdj .c-hero h1{
+  text-shadow:2px 2px 0 var(--paper), 4px 4px 0 rgba(61,26,8,.35);
+  -webkit-text-stroke:1.5px var(--ink);
+}
+body.xdj .c-h2{border-bottom:3px solid var(--ink)}
+body.xdj .c-h2-no{color:var(--red);-webkit-text-stroke:.6px var(--ink)}
+body.xdj .dish-item{
+  border:3px solid var(--ink);border-radius:4px;
+  box-shadow:5px 6px 0 rgba(61,26,8,.75);
+}
+body.xdj .dish-item:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:7px 9px 0 rgba(61,26,8,.8)}
+body.xdj .dish-ic{color:var(--red)}
+body.xdj .c-tags li{border:2px solid var(--ink);font-weight:700}
+body.xdj .trivia li::before{border:2px solid var(--ink);color:var(--red);font-weight:700}
+body.xdj .c-nav-btn{border:3px solid var(--ink);font-weight:700;box-shadow:3px 4px 0 rgba(61,26,8,.7)}
+body.xdj .c-nav-btn:hover{background:var(--red);color:var(--gold)}
+body.xdj .c-nav,.body.xdj .c-footer{border-top:4px solid var(--ink)}
+body.xdj .style-switch{background:var(--red);color:#ffe45c;border-color:var(--ink);box-shadow:2px 3px 0 rgba(61,26,8,.8)}
+body.xdj .topbar{background:rgba(255,243,208,.94);border-bottom:3px solid var(--ink)}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- 本页按需内联的菜品图标（从 index.html 图标库抽取） -->
+<svg class="defs" aria-hidden="true">
+  <defs>
+        <symbol id="ic-soup" viewBox="0 0 40 40">
+          <path d="M9,17 h22 v9 a11,11 0 0,1 -22,0 Z"/>
+          <path d="M7,17 h26" stroke-width="1.6"/>
+          <path d="M13,17 v-3 h14 v3" stroke-width="1.6"/>
+          <path d="M16,10 q2,-4 0,-6 M24,11 q2,-4 0,-6" stroke-width="1.5"/>
+        </symbol>
+        <symbol id="ic-pork" viewBox="0 0 40 40">
+          <rect x="7" y="11" width="26" height="19" rx="4"/>
+          <path d="M7,19 q7,4 13,0 t13,0" stroke-width="1.5"/>
+          <path d="M7,25 q7,-4 13,0 t13,0" stroke-width="1.5"/>
+        </symbol>
+        <symbol id="ic-clam" viewBox="0 0 40 40">
+          <path d="M20,30 q-12,0 -13,-10 q13,-7 26,0 q-1,10 -13,10 Z"/>
+          <path d="M20,30 v-10 M13,29 l4,-8 M27,29 l-4,-8" stroke-width="1.5"/>
+        </symbol>
+        <symbol id="ic-noodle" viewBox="0 0 40 40">
+          <path d="M7,19 h26 v5 a13,13 0 0,1 -26,0 Z"/>
+          <path d="M11,19 q3,-5 6,0 t6,0 t6,0" stroke-width="1.5"/>
+          <path d="M26,6 l6,-3" stroke-width="1.8"/>
+          <path d="M30,5 l4,-2" stroke-width="1.8"/>
+        </symbol>
+        <symbol id="ic-cake" viewBox="0 0 40 40">
+          <path d="M8,21 h24 a12,12 0 0,1 -24,0 Z"/>
+          <path d="M11,21 q2,-9 9,-9 t9,9" stroke-width="1.6"/>
+          <circle cx="20" cy="13" r="1.6" fill="currentColor" stroke="none"/>
+        </symbol>
+        <symbol id="ic-abalone" viewBox="0 0 40 40">
+          <circle cx="20" cy="21" r="11"/>
+          <path d="M20,13 a8,8 0 1,1 -7.9,13.4" stroke-width="1.8"/>
+          <path d="M20,18 a3.5,3.5 0 1,1 -3.4,5.9" stroke-width="1.6"/>
+        </symbol>
+        <symbol id="ic-eel" viewBox="0 0 40 40">
+          <path d="M7,29 q5,-12 12,-9 q8,4 14,-7"/>
+          <path d="M32,14 q4,-3 4,2 q0,4 -5,3" stroke-width="1.6"/>
+          <path d="M7,29 l-3,4 6,-2" stroke-width="1.6"/>
+          <circle cx="30" cy="15" r="1.2" fill="currentColor" stroke="none"/>
+        </symbol>
+        <symbol id="ic-ribs" viewBox="0 0 40 40">
+          <path d="M9,13 q11,-4 21,3"/>
+          <path d="M12,16 l-3,10 M19,16 l-2,11 M26,17 l2,11 M31,19 l3,9" stroke-width="1.7"/>
+        </symbol>
+      </defs>
+    </svg>
+
+<nav class="topbar">
+  <div class="nav-in">
+    <a class="logo" href="index.html"><span class="mini-seal">食</span>食味人间<small>A Journal of Chinese Flavours</small></a>
+    <div class="nav-links">
+      <a href="index.html#columns">寻味栏目</a>
+      <a class="ss-back" href="index.html">← 返回首页</a>
+      <button type="button" class="style-switch" id="styleSwitch" aria-pressed="false" title="切换页面风格">
+        <span class="ss-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6l1.9 4.6 4.6 1.9-4.6 1.9L12 15.6l-1.9-4.6L5.5 9.1l4.6-1.9z"/>
+            <path d="M18.6 15.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>
+          </svg>
+        </span>
+        <span class="ss-txt">小当家模式</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="c-hero">
+  <div class="container c-hero-in">
+    <span class="c-big" aria-hidden="true">闽</span>
+    <p class="c-crumb"><a href="index.html#columns">八大菜系</a><i>/</i>闽菜</p>
+    <p class="c-no">No.06</p>
+    <h1>闽菜<i>Fujian Cuisine</i></h1>
+    <p class="c-tag">汤醇鲜和</p>
+    <p class="c-sub">坛启荤香，飘连四邻</p>
+  </div>
+</header>
+
+<main class="container c-main">
+  <section class="c-sec rv">
+    <h2 class="c-h2"><span class="c-h2-no">壹</span>历史渊源与地理成因</h2>
+    <div class="c-body">
+          <p>福建「八山一水一分田」，背山面海，山珍与海味兼得。气候温暖湿润，食材易腐，因而格外重汤、重糟、重保鲜之法。</p>
+          <p>唐宋海上丝绸之路带来番薯与香料；近代福州、厦门开埠，餐饮鼎盛，闽菜也随华侨远播南洋，成为许多东南亚菜式的源头之一。</p>
+    </div>
+  </section>
+
+  <section class="c-sec rv" style="--d:.08s">
+    <h2 class="c-h2"><span class="c-h2-no">贰</span>口味特点与核心技法</h2>
+    <p class="c-lead">汤菜居首，一汤十变。红糟入馔是闽菜的独门标记，酸甜淡雅与醇厚荤香并存。</p>
+    <div class="c-tags-wrap">
+      <p class="c-tags-label">味　型</p>
+      <ul class="c-tags"><li>清鲜</li><li>和醇</li><li>荤香</li><li>糟香</li><li>酸甜</li><li>淡雅</li><li>鲜爽</li><li>沙茶</li></ul>
+    </div>
+    <div class="c-tags-wrap">
+      <p class="c-tags-label">技　法</p>
+      <ul class="c-tags c-tags-alt"><li>煨</li><li>炖</li><li>蒸</li><li>炒</li><li>糟</li><li>醉</li><li>拌</li><li>吊汤</li></ul>
+    </div>
+  </section>
+
+  <section class="c-sec rv" style="--d:.16s">
+    <h2 class="c-h2"><span class="c-h2-no">叁</span>八道代表菜</h2>
+    <ol class="dish-list">
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-soup"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">01</span>佛跳墙<i>Buddha Jumps Over the Wall</i></h3>
+              <p>十余种山珍海味入绍兴酒坛，荷叶封口，炭火慢煨数日。开坛那一刻，香气能穿堂。</p>
+            </div>
+          </li>
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-pork"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">02</span>荔枝肉<i>Lychee Pork</i></h3>
+              <p>剞花如荔枝壳，炸后卷曲成形，酸甜汁一裹，形味两似。</p>
+            </div>
+          </li>
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-clam"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">03</span>海蛎煎<i>Oyster Omelette</i></h3>
+              <p>地瓜粉要选粗粒，与海蛎同煎，边缘焦脆、内里软糯。闽南夜市的头牌。</p>
+            </div>
+          </li>
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-noodle"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">04</span>沙茶面<i>Satay Noodles</i></h3>
+              <p>南洋沙茶酱落地闽南，被改造成更符合本地口味的酱料，如今成了一碗面的灵魂。</p>
+            </div>
+          </li>
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-cake"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">05</span>太极芋泥<i>Taro Puree</i></h3>
+              <p>槟榔芋蒸透碾成泥，猪油炒香。表面滚烫、内里温凉，吃急了要烫嘴——据说这是故意的。</p>
+            </div>
+          </li>
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-abalone"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">06</span>淡糟香螺片<i>Wine Lees Whelk Slices</i></h3>
+              <p>红糟调味，螺片脆嫩。糟香不抢海鲜本味，是闽菜用糟的分寸感。</p>
+            </div>
+          </li>
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-eel"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">07</span>红糟鳗鱼<i>Red Lees Eel</i></h3>
+              <p>红糟腌后油炸，酒香扑鼻。福州人年节里少不了这一味。</p>
+            </div>
+          </li>
+          <li class="dish-item">
+            <svg class="dish-ic" aria-hidden="true"><use href="#ic-ribs"/></svg>
+            <div class="dish-txt">
+              <h3><span class="dish-no">08</span>醉排骨<i>Drunken Spare Ribs</i></h3>
+              <p>酸甜汁临上桌才浇，趁热吃最酥。糖醋比例是每家馆子的秘密。</p>
+            </div>
+          </li>
+    </ol>
+  </section>
+
+  <section class="c-sec rv" style="--d:.24s">
+    <h2 class="c-h2"><span class="c-h2-no">肆</span>冷知识与食俗</h2>
+    <ol class="trivia"><li>佛跳墙得名于诗句「坛启荤香飘四邻，佛闻弃禅跳墙来」——连佛都忍不住，凡人更不必说。</li><li>红糟是红曲酒酿剩下的酒糟，既上色又去腥增香，是闽菜区别于其他菜系的关键一味。</li><li>沙茶源自南洋「沙嗲」，随华侨回传闽南后被本地化：减了椰糖、加了本地香料，成了今天的沙茶酱。</li></ol>
+  </section>
+</main>
+
+<nav class="c-nav">
+  <div class="container c-nav-in">
+    <a class="c-nav-btn" href="cuisine-zhe.html">← 浙菜</a>
+    <a class="c-nav-btn c-nav-home" href="index.html#columns">返回八大菜系</a>
+    <a class="c-nav-btn" href="cuisine-xiang.html">湘菜 →</a>
+  </div>
+</nav>
+
+<footer class="c-footer">
+  <div class="container">
+    <p>食味人间 · 中华美食志</p>
+    <p class="c-footer-sub">纸上食堂，日日开张</p>
+  </div>
+</footer>
+
+<script>
+/* 风格切换：与首页共用 localStorage 键 foodpage-style */
+(function(){
+  var KEY='foodpage-style', btn=document.getElementById('styleSwitch');
+  if(!btn)return;
+  var txt=btn.querySelector('.ss-txt');
+  function apply(mode,save){
+    var on=(mode==='xdj');
+    document.body.classList.toggle('xdj',on);
+    btn.setAttribute('aria-pressed',on?'true':'false');
+    if(txt)txt.textContent=on?'水墨模式':'小当家模式';
+    if(save){try{localStorage.setItem(KEY,mode);}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
+  apply(saved==='xdj'?'xdj':'ink',false);
+  btn.addEventListener('click',function(){
+    apply(document.body.classList.contains('xdj')?'ink':'xdj',true);
+  });
+})();
+
+/* 滚动入场 */
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!els.length)return;
+  if(!('IntersectionObserver' in window)){
+    for(var i=0;i<els.length;i++)els[i].classList.add('on');
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>
