@@ -15,7 +15,13 @@
 | `cuisine-min.html` | 闽菜专栏页 |
 | `cuisine-xiang.html` | 湘菜专栏页 |
 | `cuisine-hui.html` | 徽菜专栏页 |
-| `build-cuisines.mjs` | **专栏页生成器**。改完菜系数据重跑即可覆盖那 8 个页面 |
+| `season-spring.html` | 春季节气页（立春→谷雨，由脚本生成） |
+| `season-summer.html` | 夏季节气页（立夏→大暑） |
+| `season-autumn.html` | 秋季节气页（立秋→霜降） |
+| `season-winter.html` | 冬季节气页（立冬→大寒） |
+| `build-cuisines.mjs` | **菜系专栏页生成器**。改完菜系数据重跑即可覆盖那 8 个页面 |
+| `build-seasons.mjs` | **季节专栏页生成器**。改完节气数据重跑即可覆盖那 4 个页面 |
+| `index-before-season.html` | 2026-09-14 节气食单改版前的备份，回退用，可删 |
 | `index-before-cuisine8.html` | 2026-09-14 菜系扩到 8 道菜 + 进专栏前的备份，回退用，可删 |
 | `index-before-mobile.html` | 2026-09-14 手机端横向溢出修复前的备份，回退用，可删 |
 | `index-before-640fix.html` | 2026-09-13 修窄屏按钮 / nav 具名化前的备份，回退用，可删 |
@@ -49,7 +55,7 @@
    |---|---|---|
    | 八大菜系 | `p-cuisines` | 川粤鲁苏浙闽湘徽，每格书法字水印 + 专属 SVG 底纹 + **8 道代表菜（带手绘图标）**，**整张卡片可点，进各自专栏页** |
    | 街头巷尾 | `p-snacks` | 6 张小吃横滑卡，全部手绘矢量插画 |
-   | 节气食单 | `p-seasonal` | 春夏秋冬，暗色面板 |
+   | 节气食单 | `p-seasonal` | 春夏秋冬 4 张暗色卡，每卡列该季 6 个节气的当令食物，**整卡可点**进季节页 |
 
 4. **页脚** — 「人间烟火气，最抚凡人心」
 
@@ -111,6 +117,12 @@ var DISHES=[
 - 版式在 `page()` 函数返回的模板字符串里，八个页面共用同一份模板
 - 脚本会校验图标：引用了 `index.html` 里不存在的 `ic-*` 会直接报错并中止，不会生成半成品
 
+### 改节气食单的季节页
+
+`season-spring / summer / autumn / winter.html` 由 `build-seasons.mjs` 生成，**别手改**。每页含：季节导语 + 该季 6 个节气，每个节气三段 = **由来与物候 / 食俗讲究 / 当令食材详解**（每项配图标），底部上一下一季节循环导航。
+
+改法：`build-seasons.mjs` 顶部的 `SEASONS` 数组（`terms` 里每个节气含 `origin` / `custom` / `foods`），改完执行 `node build-seasons.mjs`。同样有图标引用校验。
+
 ### 改栏目切换
 
 tab 按钮带 `data-panel`，面板是同 id 的 `.col-panel`，切换逻辑在末尾脚本「寻味栏目：三档切换」里。面板默认 `display:none`，激活时加 `.on` 并给内部 `.rv` 补 `.on`（否则隐藏时滚动入场动画不会触发）。加第四档栏目时：复制一个 `.col-panel` + 一个 `data-panel` 匹配的 tab 即可，JS 不用改。
@@ -132,7 +144,9 @@ tab 按钮带 `data-panel`，面板是同 id 的 `.col-panel`，切换逻辑在�
 food-page/
 ├── index.html                ← 首页，入口
 ├── cuisine-*.html            ← 8 个菜系专栏页（互链，也链回 index）
-├── build-cuisines.mjs        ← 专栏页生成器（只有改内容时才需要 node）
+├── season-*.html             ← 4 个季节节气页（互链，也链回 index）
+├── build-cuisines.mjs        ← 菜系页生成器（只有改内容时才需要 node）
+├── build-seasons.mjs         ← 季节页生成器
 ├── README.md
 └── index-before-*.html       ← 历史备份（可删）
 ```

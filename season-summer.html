@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="食味人间 · 夏 · 消长夏食单 —— 消暑解热。附立夏、小满、芒种、夏至、小暑、大暑六个节气的物候由来、食俗讲究与当令食材。">
+<title>夏季食单 · 节气食单 · 食味人间</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%9C%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6efe1; --paper-2:#efe5d0; --card:#fbf6ea;
+  --ink:#2a2018; --ink-2:#6b5a46; --line:rgba(42,32,24,.16);
+  --red:#b23a2a; --red-2:#8e2b1e; --gold:#c8963e; --gold-2:#d8a04a;
+  --f-cal:'Ma Shan Zheng','STKaiti','KaiTi','SimSun',serif;
+  --f-serif:'Noto Serif SC','Source Han Serif SC','SimSun',serif;
+  --f-lat:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+/* 与首页同：html 与 body 都要写 overflow-x，只写 body 移动端仍会出现横向空白条 */
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  font-family:var(--f-serif);background:var(--paper);color:var(--ink);
+  line-height:1.85;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--red);color:var(--paper)}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+.container{width:min(960px,92vw);margin:0 auto}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* 纸张噪点 */
+.grain{
+  position:fixed;inset:0;z-index:150;pointer-events:none;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* ---------- 顶栏 ---------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:64px;
+  background:rgba(246,239,225,.93);backdrop-filter:blur(9px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{width:min(1180px,92vw);margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1.4rem}
+.logo{display:flex;align-items:center;gap:.5rem;font-family:var(--f-cal);font-size:1.3rem;letter-spacing:.06em}
+.mini-seal{width:26px;height:26px;flex:none;display:grid;place-items:center;background:var(--red);color:#fff;font-family:var(--f-serif);font-size:.86rem;border-radius:3px}
+.logo small{font-family:var(--f-lat);font-size:.68rem;letter-spacing:.18em;color:var(--ink-2)}
+.nav-links{display:flex;align-items:center;gap:1.4rem;font-size:.88rem}
+.nav-links a{transition:color .3s}
+.nav-links a:hover{color:var(--red)}
+@media (max-width:640px){
+  .nav-links a:not(.ss-back){display:none}
+  .logo small{display:none}
+  .nav-links{gap:.9rem}
+}
+
+/* ---------- 风格切换按钮 ---------- */
+.style-switch{
+  display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;flex:none;
+  font:inherit;font-size:.76rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;
+  padding:.34rem .8rem;border:2px solid var(--ink);border-radius:999px;
+  background:var(--paper);color:var(--ink);box-shadow:2px 3px 0 rgba(42,32,24,.45);
+  transition:transform .28s, background .35s, color .35s, box-shadow .35s;
+}
+.style-switch:hover{transform:translateY(-2px)}
+.style-switch:active{transform:translateY(1px);box-shadow:1px 2px 0 rgba(42,32,24,.45)}
+.style-switch .ss-ico{width:15px;height:15px;display:block;flex:none}
+.style-switch .ss-ico svg{width:100%;height:100%}
+@media (max-width:640px){
+  .style-switch{padding:.32rem .48rem;gap:0}
+  .style-switch .ss-txt{display:none}
+}
+
+/* ---------- 专栏头图 ---------- */
+.c-hero{
+  position:relative;overflow:hidden;
+  padding:9.5rem 0 3.6rem;
+  background:
+    radial-gradient(680px 360px at 88% 18%, rgba(200,150,62,.16), transparent 72%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  border-bottom:1px solid var(--line);
+}
+.c-hero-in{position:relative}
+.c-big{
+  position:absolute;right:0;top:-3.4rem;
+  font-family:var(--f-cal);font-size:15rem;line-height:1;
+  color:rgba(42,32,24,.08);pointer-events:none;user-select:none;
+}
+.c-crumb{font-size:.8rem;letter-spacing:.14em;color:var(--ink-2)}
+.c-crumb i{font-style:normal;margin:0 .5rem;opacity:.6}
+.c-crumb a:hover{color:var(--red)}
+.c-no{font-family:var(--f-lat);font-style:italic;font-weight:600;color:var(--red);letter-spacing:.1em;margin-top:1.1rem}
+.c-hero h1{font-size:clamp(2.4rem,6vw,3.8rem);font-weight:900;letter-spacing:.06em;line-height:1.2}
+.c-hero h1 i{
+  display:block;font-family:var(--f-lat);font-style:italic;font-weight:500;
+  font-size:1.05rem;letter-spacing:.18em;color:var(--red);margin-top:.4rem;
+}
+.c-tag{
+  display:inline-block;margin-top:1.2rem;padding:.28rem 1.1rem;
+  border:1px solid rgba(178,58,42,.5);border-radius:999px;
+  font-size:.82rem;letter-spacing:.24em;color:var(--red);
+}
+.c-sub{margin-top:.9rem;font-family:var(--f-cal);font-size:1.5rem;color:var(--ink-2);letter-spacing:.08em}
+
+/* ---------- 正文版块 ---------- */
+.c-main{padding:4.2rem 0 2rem}
+.c-sec{margin-bottom:3.2rem}
+.c-h2{
+  display:flex;align-items:baseline;gap:.9rem;
+  font-size:1.5rem;font-weight:900;letter-spacing:.1em;
+  padding-bottom:.9rem;margin-bottom:1.5rem;border-bottom:1px solid var(--line);
+}
+.c-h2-no{font-family:var(--f-cal);font-size:1.9rem;color:var(--red);line-height:1;flex:none}
+.c-body p{margin-bottom:1.1rem;color:var(--ink);text-align:justify}
+
+/* ---------- 节气块 ---------- */
+.terms{display:grid;gap:1.6rem}
+.term{padding:1.7rem 1.8rem;background:var(--card);border:1px solid var(--line)}
+.term-head{
+  display:flex;gap:1rem;align-items:baseline;
+  padding-bottom:.85rem;margin-bottom:1rem;border-bottom:1px dashed var(--line);
+}
+.term-no{font-family:var(--f-cal);font-size:2.1rem;color:var(--red);line-height:1;flex:none}
+.term h3{font-size:1.4rem;font-weight:900;letter-spacing:.08em;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.term h3 i{font-family:var(--f-lat);font-style:italic;font-weight:500;font-size:.82rem;color:var(--ink-2);letter-spacing:.08em}
+.term-date{font-size:.78rem;letter-spacing:.16em;color:var(--gold);margin-top:.25rem}
+.term-body p{font-size:.94rem;color:var(--ink);text-align:justify}
+.t-label{
+  font-size:.78rem;letter-spacing:.22em;color:var(--ink-2);
+  margin:1.1rem 0 .3rem;
+}
+.t-label:first-child{margin-top:0}
+.food-list{display:grid;gap:.75rem;margin-top:.9rem}
+.food{
+  display:flex;gap:.95rem;align-items:flex-start;
+  padding:.8rem .95rem;border:1px dashed var(--line);background:var(--paper);
+}
+.food-ic{
+  width:32px;height:32px;flex:none;color:var(--red);
+  fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+.food h4{font-size:1rem;font-weight:900;letter-spacing:.05em;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+.food h4 i{font-family:var(--f-lat);font-style:italic;font-weight:500;font-size:.78rem;color:var(--ink-2);letter-spacing:.08em}
+.food p{margin-top:.2rem;font-size:.88rem;color:var(--ink-2);line-height:1.8}
+
+/* ---------- 底部导航 ---------- */
+.c-nav{border-top:1px solid var(--line);background:var(--paper-2);padding:2.2rem 0}
+.c-nav-in{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.c-nav-btn{
+  padding:.5rem 1.1rem;border:1px solid var(--line);background:var(--paper);
+  font-size:.88rem;letter-spacing:.06em;transition:all .3s;
+}
+.c-nav-btn:hover{background:var(--red);color:var(--paper);border-color:var(--red)}
+.c-nav-home{border-style:dashed}
+.c-footer{padding:2.6rem 0 3.2rem;text-align:center;border-top:1px solid var(--line)}
+.c-footer p{font-family:var(--f-cal);font-size:1.25rem;letter-spacing:.1em}
+.c-footer-sub{font-family:var(--f-serif);font-size:.8rem;color:var(--ink-2);letter-spacing:.18em;margin-top:.35rem}
+
+/* ---------- 滚动入场 ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease var(--d,0s), transform .9s cubic-bezier(.16,.84,.3,1) var(--d,0s)}
+.rv.on{opacity:1;transform:none}
+
+@media (max-width:640px){
+  .c-hero{padding:8rem 0 2.6rem}
+  .c-big{font-size:10rem;top:-2.2rem;right:-.4rem}
+  .c-main{padding:3rem 0 1rem}
+  .c-h2{font-size:1.25rem}
+  .term{padding:1.2rem 1.1rem}
+  .term-no{font-size:1.7rem}
+  .term h3{font-size:1.2rem}
+  .food{padding:.75rem .8rem;gap:.8rem}
+  .food-ic{width:28px;height:28px}
+  .c-nav-in{flex-direction:column}
+  .c-nav-btn{width:100%;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,.rv{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+
+/* ==========================================================
+   风格 B · 中华小当家（精简版，与首页共用同一 localStorage 键）
+   ========================================================== */
+body.xdj{
+  --paper:#fff3d0; --paper-2:#ffeab4; --card:#fffaf0;
+  --ink:#3d1a08; --ink-2:#7a4a22; --line:rgba(61,26,8,.22);
+  --red:#d5241a; --red-2:#a3140c; --gold:#ffd24a; --gold-2:#ffb300;
+}
+body.xdj .c-hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg at 82% 26%, rgba(255,210,74,.42) 0 3deg, transparent 3deg 10deg);
+  -webkit-mask-image:radial-gradient(110% 90% at 82% 26%, transparent 7%, #000 68%);
+  mask-image:radial-gradient(110% 90% at 82% 26%, transparent 7%, #000 68%);
+}
+body.xdj .c-hero{
+  background:linear-gradient(180deg,#fff3d0 0%,#ffe089 100%);
+  border-bottom:4px solid var(--ink);
+}
+body.xdj .c-big{color:rgba(61,26,8,.13)}
+body.xdj .c-hero h1{
+  text-shadow:2px 2px 0 var(--paper), 4px 4px 0 rgba(61,26,8,.35);
+  -webkit-text-stroke:1.5px var(--ink);
+}
+body.xdj .c-h2{border-bottom:3px solid var(--ink)}
+body.xdj .c-h2-no{color:var(--red);-webkit-text-stroke:.6px var(--ink)}
+body.xdj .term{
+  border:3px solid var(--ink);border-radius:4px;
+  box-shadow:5px 6px 0 rgba(61,26,8,.75);
+}
+body.xdj .term-no{color:var(--red);-webkit-text-stroke:.6px var(--ink)}
+body.xdj .food{border:2px dashed rgba(61,26,8,.4)}
+body.xdj .food-ic{color:var(--red)}
+body.xdj .c-nav-btn{border:3px solid var(--ink);font-weight:700;box-shadow:3px 4px 0 rgba(61,26,8,.7)}
+body.xdj .c-nav-btn:hover{background:var(--red);color:var(--gold)}
+body.xdj .c-nav{border-top:4px solid var(--ink)}
+body.xdj .style-switch{background:var(--red);color:#ffe45c;border-color:var(--ink);box-shadow:2px 3px 0 rgba(61,26,8,.8)}
+body.xdj .topbar{background:rgba(255,243,208,.94);border-bottom:3px solid var(--ink)}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- 本页按需内联的食材图标（从 index.html 图标库抽取） -->
+<svg class="defs" aria-hidden="true">
+  <defs>
+        <symbol id="ic-rice" viewBox="0 0 40 40">
+          <path d="M8,20 h24 v4 a12,12 0 0,1 -24,0 Z"/>
+          <path d="M9,20 q3,-9 11,-9 t11,9" stroke-width="1.6"/>
+        </symbol>
+        <symbol id="ic-egg" viewBox="0 0 40 40">
+          <path d="M7,23 q1,-8 8,-10 q6,-2 10,2 q7,3 6,9 q-1,6 -8,7 q-9,1 -16,-3 Z"/>
+          <circle cx="19" cy="22" r="4.6"/>
+        </symbol>
+        <symbol id="ic-greens" viewBox="0 0 40 40">
+          <path d="M20,32 v-9"/>
+          <path d="M20,23 q-10,-3 -9,-12 q10,-2 9,12 Z"/>
+          <path d="M20,23 q10,-3 9,-12 q-10,-2 -9,12 Z"/>
+          <path d="M20,32 q-5,2 -7,5 M20,32 q5,2 7,5" stroke-width="1.5"/>
+        </symbol>
+        <symbol id="ic-fruit" viewBox="0 0 40 40">
+          <circle cx="14" cy="25" r="6.5"/>
+          <circle cx="26" cy="25" r="6.5"/>
+          <path d="M14,18 q3,-9 12,-9" stroke-width="1.7"/>
+          <path d="M26,18 q1,-5 2,-6" stroke-width="1.4"/>
+        </symbol>
+        <symbol id="ic-noodle" viewBox="0 0 40 40">
+          <path d="M7,19 h26 v5 a13,13 0 0,1 -26,0 Z"/>
+          <path d="M11,19 q3,-5 6,0 t6,0 t6,0" stroke-width="1.5"/>
+          <path d="M26,6 l6,-3" stroke-width="1.8"/>
+          <path d="M30,5 l4,-2" stroke-width="1.8"/>
+        </symbol>
+        <symbol id="ic-eel" viewBox="0 0 40 40">
+          <path d="M7,29 q5,-12 12,-9 q8,4 14,-7"/>
+          <path d="M32,14 q4,-3 4,2 q0,4 -5,3" stroke-width="1.6"/>
+          <path d="M7,29 l-3,4 6,-2" stroke-width="1.6"/>
+          <circle cx="30" cy="15" r="1.2" fill="currentColor" stroke="none"/>
+        </symbol>
+        <symbol id="ic-lotus" viewBox="0 0 40 40">
+          <ellipse cx="20" cy="20" rx="12" ry="11"/>
+          <circle cx="20" cy="16" r="2.2"/>
+          <circle cx="15" cy="22" r="2.2"/>
+          <circle cx="25" cy="22" r="2.2"/>
+        </symbol>
+        <symbol id="ic-tea" viewBox="0 0 40 40">
+          <path d="M10,20 h16 v5 a8,8 0 0,1 -16,0 Z"/>
+          <path d="M26,22 q6,-2 6,-7" stroke-width="1.8"/>
+          <path d="M7,20 h22" stroke-width="1.6"/>
+          <path d="M14,15 q2,-4 4,-1 M20,15 q2,-4 4,-1" stroke-width="1.5"/>
+        </symbol>
+      </defs>
+    </svg>
+
+<nav class="topbar">
+  <div class="nav-in">
+    <a class="logo" href="index.html"><span class="mini-seal">食</span>食味人间<small>A Journal of Chinese Flavours</small></a>
+    <div class="nav-links">
+      <a href="index.html#columns">寻味栏目</a>
+      <a class="ss-back" href="index.html">← 返回首页</a>
+      <button type="button" class="style-switch" id="styleSwitch" aria-pressed="false" title="切换页面风格">
+        <span class="ss-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6l1.9 4.6 4.6 1.9-4.6 1.9L12 15.6l-1.9-4.6L5.5 9.1l4.6-1.9z"/>
+            <path d="M18.6 15.2l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>
+          </svg>
+        </span>
+        <span class="ss-txt">小当家模式</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="c-hero">
+  <div class="container c-hero-in">
+    <span class="c-big" aria-hidden="true">夏</span>
+    <p class="c-crumb"><a href="index.html#columns">节气食单</a><i>/</i>夏 · 消长夏</p>
+    <p class="c-no">No.02</p>
+    <h1>夏 · 消长夏<i>Summer · Six Solar Terms</i></h1>
+    <p class="c-tag">消暑解热</p>
+    <p class="c-sub">一碗凉汤，半日清风</p>
+  </div>
+</header>
+
+<main class="container c-main">
+  <section class="c-sec rv">
+    <h2 class="c-h2"><span class="c-h2-no">序</span>夏季食事</h2>
+    <div class="c-body">
+          <p>夏三月，此谓蕃秀。天地气交，万物华实——白昼被拉得很长，人的胃口却被暑气挤得很小。</p>
+          <p>于是夏季的食物反其道而行：不重滋补，重"清"与"苦"。一碗绿豆、一碟苦菜、一盆过水面，靠的是把身体里的火气顺下去，而不是硬补上来。</p>
+    </div>
+  </section>
+
+  <section class="c-sec rv" style="--d:.06s">
+    <h2 class="c-h2"><span class="c-h2-no">陆</span>六个节气</h2>
+    <div class="terms">
+        <section class="term rv" style="--d:0s">
+          <div class="term-head">
+            <span class="term-no">壹</span>
+            <div>
+              <h3>立夏<i>Start of Summer</i></h3>
+              <p class="term-date">5 月 5—7 日</p>
+            </div>
+          </div>
+          <div class="term-body">
+            <p class="t-label">由来与物候</p>
+            <p>万物进入旺季生长。三候「蝼蝈鸣、蚯蚓出、王瓜生」——蛙声起，土里翻，藤蔓爬。</p>
+            <p class="t-label">食俗讲究</p>
+            <p>称人、斗蛋是孩子的节俗：把蛋装在彩线网兜里挂胸前，互相撞，壳不破者为王。吃"立夏饭"与乌米饭，据说可防"疰夏"（苦夏）。</p>
+            <p class="t-label">当令食材</p>
+            <ul class="food-list">
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-rice"/></svg>
+              <div>
+                <h4>立夏饭<i>Five-bean Rice</i></h4>
+                <p>赤豆、黄豆、黑豆、青豆与白米同煮，五色齐全。有的地方加雷笋、豌豆，一锅就是一季的收成。</p>
+              </div>
+            </li>
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-egg"/></svg>
+              <div>
+                <h4>立夏蛋<i>Summer Egg</i></h4>
+                <p>茶叶、八角、桂皮煮出的卤蛋，壳敲出细纹更入味。挂在线兜里，是孩子一整天的玩具与零食。</p>
+              </div>
+            </li>
+            </ul>
+          </div>
+        </section>
+        <section class="term rv" style="--d:0.06s">
+          <div class="term-head">
+            <span class="term-no">贰</span>
+            <div>
+              <h3>小满<i>Grain Full</i></h3>
+              <p class="term-date">5 月 20—22 日</p>
+            </div>
+          </div>
+          <div class="term-body">
+            <p class="t-label">由来与物候</p>
+            <p>麦粒渐满而尚未熟透，故曰"小满"。三候「苦菜秀、靡草死、麦秋至」——苦菜正盛，喜阴的草开始枯。</p>
+            <p class="t-label">食俗讲究</p>
+            <p>祭车神、抢水灌田。饮食上讲究"小满食苦，一夏不苦"，吃苦菜、苦瓜，以苦清心。</p>
+            <p class="t-label">当令食材</p>
+            <ul class="food-list">
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-greens"/></svg>
+              <div>
+                <h4>苦菜<i>Bitter Herb</i></h4>
+                <p>焯水去苦后凉拌，或裹面蒸成"苦累"。入口微苦，回甘很长，是老一辈的清火方。</p>
+              </div>
+            </li>
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-fruit"/></svg>
+              <div>
+                <h4>枇杷<i>Loquat</i></h4>
+                <p>小满前后上市，果肉柔软多汁。川贝枇杷膏用的就是它，润的是夏初那口燥。</p>
+              </div>
+            </li>
+            </ul>
+          </div>
+        </section>
+        <section class="term rv" style="--d:0.12s">
+          <div class="term-head">
+            <span class="term-no">叁</span>
+            <div>
+              <h3>芒种<i>Grain in Ear</i></h3>
+              <p class="term-date">6 月 5—7 日</p>
+            </div>
+          </div>
+          <div class="term-body">
+            <p class="t-label">由来与物候</p>
+            <p>"芒"指有芒的麦子可收，"种"指有芒的稻子可种——一边收一边种，是农事最忙的节气。三候「螳螂生、䴗始鸣、反舌无声」。</p>
+            <p class="t-label">食俗讲究</p>
+            <p>送花神、安苗祭祀；江南煮青梅——"青梅煮酒论英雄"的典故就出在这个季节。</p>
+            <p class="t-label">当令食材</p>
+            <ul class="food-list">
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-fruit"/></svg>
+              <div>
+                <h4>青梅<i>Green Plum</i></h4>
+                <p>鲜梅极酸，多以糖腌、盐渍或泡酒。煮酒时丢几颗，酸香把酒气托起来。</p>
+              </div>
+            </li>
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-greens"/></svg>
+              <div>
+                <h4>君踏菜<i>Summer Greens</i></h4>
+                <p>芒种前后宁波人必吃的一种青菜，据说吃了夏天不长痱子、皮肤光洁。</p>
+              </div>
+            </li>
+            </ul>
+          </div>
+        </section>
+        <section class="term rv" style="--d:0s">
+          <div class="term-head">
+            <span class="term-no">肆</span>
+            <div>
+              <h3>夏至<i>Summer Solstice</i></h3>
+              <p class="term-date">6 月 21—22 日</p>
+            </div>
+          </div>
+          <div class="term-body">
+            <p class="t-label">由来与物候</p>
+            <p>日北至，昼最长，影最短。三候「鹿角解、蜩始鸣、半夏生」——鹿角脱落，蝉声登场，半夏在沼泽里冒头。</p>
+            <p class="t-label">食俗讲究</p>
+            <p>"冬至饺子夏至面"。新麦登场，吃一碗过水面最应景；岭南则啖荔枝、饮凉茶，以热制热。</p>
+            <p class="t-label">当令食材</p>
+            <ul class="food-list">
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-noodle"/></svg>
+              <div>
+                <h4>过水面<i>Cold Noodles</i></h4>
+                <p>面条煮熟过三遍凉水，浇麻酱、蒜汁、黄瓜丝。凉得透，才压得住暑气。</p>
+              </div>
+            </li>
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-fruit"/></svg>
+              <div>
+                <h4>荔枝<i>Lychee</i></h4>
+                <p>"一骑红尘妃子笑"。夏至的荔枝刚离枝最甜，但要记得"一颗荔枝三把火"。</p>
+              </div>
+            </li>
+            </ul>
+          </div>
+        </section>
+        <section class="term rv" style="--d:0.06s">
+          <div class="term-head">
+            <span class="term-no">伍</span>
+            <div>
+              <h3>小暑<i>Minor Heat</i></h3>
+              <p class="term-date">7 月 6—8 日</p>
+            </div>
+          </div>
+          <div class="term-body">
+            <p class="t-label">由来与物候</p>
+            <p>出梅入伏，暑气渐盛而未极。三候「温风至、蟋蟀居壁、鹰始鸷」——风里没了凉意，蟋蟀躲到墙根。</p>
+            <p class="t-label">食俗讲究</p>
+            <p>南方"食新"：新米登场先祭祖再尝新；民间"小暑黄鳝赛人参"，此时的鳝鱼最肥。</p>
+            <p class="t-label">当令食材</p>
+            <ul class="food-list">
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-eel"/></svg>
+              <div>
+                <h4>黄鳝<i>Ricefield Eel</i></h4>
+                <p>六月鳝鱼赛人参。红烧或炒响铃鳝片，肉厚刺少，是伏天里难得的硬菜。</p>
+              </div>
+            </li>
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-rice"/></svg>
+              <div>
+                <h4>新米饭<i>New Rice</i></h4>
+                <p>早稻新碾的米，蒸出来油亮带香。配一碟咸菜，就是农人犒劳自己的一顿。</p>
+              </div>
+            </li>
+            </ul>
+          </div>
+        </section>
+        <section class="term rv" style="--d:0.12s">
+          <div class="term-head">
+            <span class="term-no">陆</span>
+            <div>
+              <h3>大暑<i>Major Heat</i></h3>
+              <p class="term-date">7 月 22—24 日</p>
+            </div>
+          </div>
+          <div class="term-body">
+            <p class="t-label">由来与物候</p>
+            <p>一年中最热，湿热交蒸。三候「腐草为萤、土润溽暑、大雨时行」——萤火虫在腐草间起落，雷雨说来就来。</p>
+            <p class="t-label">食俗讲究</p>
+            <p>浙江沿海送"大暑船"，把瘟神送出海口；闽南吃荔枝、羊肉"过大暑"，以热补热；街头则免费施"伏茶"。</p>
+            <p class="t-label">当令食材</p>
+            <ul class="food-list">
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-lotus"/></svg>
+              <div>
+                <h4>莲藕<i>Lotus Root</i></h4>
+                <p>小暑吃藕。生藕清脆、熟藕绵糯，排骨炖藕汤是三伏里最温柔的一口。</p>
+              </div>
+            </li>
+            <li class="food">
+              <svg class="food-ic" aria-hidden="true"><use href="#ic-tea"/></svg>
+              <div>
+                <h4>伏茶<i>Summer Herbal Tea</i></h4>
+                <p>金银花、夏枯草、甘草同煮，晾凉后大缸盛着，路人自取一碗。</p>
+              </div>
+            </li>
+            </ul>
+          </div>
+        </section>
+    </div>
+  </section>
+</main>
+
+<nav class="c-nav">
+  <div class="container c-nav-in">
+    <a class="c-nav-btn" href="season-spring.html">← 春 · 万物萌发</a>
+    <a class="c-nav-btn c-nav-home" href="index.html#columns">返回节气食单</a>
+    <a class="c-nav-btn" href="season-autumn.html">秋 · 贴秋膘 →</a>
+  </div>
+</nav>
+
+<footer class="c-footer">
+  <div class="container">
+    <p>食味人间 · 中华美食志</p>
+    <p class="c-footer-sub">不时不食，顺时而食</p>
+  </div>
+</footer>
+
+<script>
+/* 风格切换：与首页共用 localStorage 键 foodpage-style */
+(function(){
+  var KEY='foodpage-style', btn=document.getElementById('styleSwitch');
+  if(!btn)return;
+  var txt=btn.querySelector('.ss-txt');
+  function apply(mode,save){
+    var on=(mode==='xdj');
+    document.body.classList.toggle('xdj',on);
+    btn.setAttribute('aria-pressed',on?'true':'false');
+    if(txt)txt.textContent=on?'水墨模式':'小当家模式';
+    if(save){try{localStorage.setItem(KEY,mode);}catch(e){}}
+  }
+  var saved=null;try{saved=localStorage.getItem(KEY);}catch(e){}
+  apply(saved==='xdj'?'xdj':'ink',false);
+  btn.addEventListener('click',function(){
+    apply(document.body.classList.contains('xdj')?'ink':'xdj',true);
+  });
+})();
+
+/* 滚动入场 */
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!els.length)return;
+  if(!('IntersectionObserver' in window)){
+    for(var i=0;i<els.length;i++)els[i].classList.add('on');
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('on');io.unobserve(en.target);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>

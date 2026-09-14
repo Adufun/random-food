@@ -316,10 +316,8 @@ h1.vt .r{color:var(--red)}
 .seasonal .lede{color:rgba(241,231,210,.68)}
 .seasonal .chap{color:var(--gold-2)}
 .se-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(241,231,210,.14);border:1px solid rgba(241,231,210,.14)}
-/* <a> 当卡片容器：必须显式 display:block，否则退回行内布局，padding/高度/整块点击全失效 */
 .se{
-  position:relative;overflow:hidden;display:block;color:inherit;
-  background:#201709;padding:2rem 1.6rem 3.4rem;min-height:372px;
+  position:relative;overflow:hidden;background:#201709;padding:2rem 1.6rem;min-height:320px;
   transition:background .45s;
 }
 .se:hover{background:#2a1e10}
@@ -338,19 +336,6 @@ h1.vt .r{color:var(--red)}
 }
 .se li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);flex:none}
 .se li:last-child{border-bottom:none}
-/* 有图标后不再需要原来的红点引导符 */
-.se li::before{display:none}
-.se li .ic{
-  width:21px;height:21px;flex:none;opacity:.85;
-  fill:none;stroke:var(--gold-2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
-}
-.se li b{font-weight:400;font-size:.72rem;letter-spacing:.12em;color:var(--gold-2);opacity:.72;margin-right:.5rem}
-.se-more{
-  position:absolute;left:1.6rem;bottom:1.15rem;
-  font-size:.78rem;letter-spacing:.14em;color:var(--gold-2);opacity:.7;
-  transition:opacity .4s, transform .4s;
-}
-.se:hover .se-more{opacity:1;transform:translateX(4px)}
 
 /* ============ 页脚 ============ */
 footer{padding:5.5rem 0 2rem;text-align:center}
@@ -697,9 +682,6 @@ body.xdj .se{
 body.xdj .se:hover{background:#3a1a09}
 body.xdj .se .wm{color:rgba(255,228,92,.16)}
 body.xdj .s-en{color:var(--gold-2);font-weight:700}
-body.xdj .se li .ic{stroke:#ffe45c;opacity:.95}
-body.xdj .se li b{color:#ffe45c;opacity:.85;font-weight:700}
-body.xdj .se-more{color:#ffe45c;font-weight:700;opacity:.85}
 
 /* —— 页脚 —— */
 body.xdj .f-bar{border-top:4px solid var(--ink);font-weight:700}
@@ -1335,45 +1317,6 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
           <circle cx="23" cy="18" r="4.6"/>
           <circle cx="16" cy="28" r="4"/>
         </symbol>
-        <!-- 茶 / 清饮（谷雨茶、伏茶、白露茶） -->
-        <symbol id="ic-tea" viewBox="0 0 40 40">
-          <path d="M10,20 h16 v5 a8,8 0 0,1 -16,0 Z"/>
-          <path d="M26,22 q6,-2 6,-7" stroke-width="1.8"/>
-          <path d="M7,20 h22" stroke-width="1.6"/>
-          <path d="M14,15 q2,-4 4,-1 M20,15 q2,-4 4,-1" stroke-width="1.5"/>
-        </symbol>
-        <!-- 莲藕 -->
-        <symbol id="ic-lotus" viewBox="0 0 40 40">
-          <ellipse cx="20" cy="20" rx="12" ry="11"/>
-          <circle cx="20" cy="16" r="2.2"/>
-          <circle cx="15" cy="22" r="2.2"/>
-          <circle cx="25" cy="22" r="2.2"/>
-        </symbol>
-        <!-- 栗子 -->
-        <symbol id="ic-chestnut" viewBox="0 0 40 40">
-          <path d="M8,22 q3,-12 12,-12 t12,12 q-4,10 -12,10 t-12,-10 Z"/>
-          <path d="M20,10 v6" stroke-width="1.6"/>
-          <path d="M8,22 h24" stroke-width="1.4"/>
-        </symbol>
-        <!-- 汤圆 / 元宵 -->
-        <symbol id="ic-tangyuan" viewBox="0 0 40 40">
-          <path d="M7,18 h26 v4 a13,13 0 0,1 -26,0 Z"/>
-          <circle cx="15" cy="16" r="3.4"/>
-          <circle cx="24" cy="16" r="3.4"/>
-        </symbol>
-        <!-- 柿子 -->
-        <symbol id="ic-persimmon" viewBox="0 0 40 40">
-          <path d="M9,20 q2,-11 11,-11 t11,11 q-2,11 -11,11 t-11,-11 Z"/>
-          <path d="M20,9 v-4" stroke-width="1.8"/>
-          <path d="M14,8 q6,-4 12,0" stroke-width="1.6"/>
-        </symbol>
-        <!-- 时令果（樱桃 / 青梅 / 龙眼） -->
-        <symbol id="ic-fruit" viewBox="0 0 40 40">
-          <circle cx="14" cy="25" r="6.5"/>
-          <circle cx="26" cy="25" r="6.5"/>
-          <path d="M14,18 q3,-9 12,-9" stroke-width="1.7"/>
-          <path d="M26,18 q1,-5 2,-6" stroke-width="1.4"/>
-        </symbol>
       </defs>
     </svg>
 
@@ -1789,62 +1732,50 @@ body.xdj .style-switch:active{box-shadow:1px 2px 0 rgba(61,26,8,.8)}
     <section class="col-panel col-dark" id="p-seasonal" role="tabpanel" aria-labelledby="tab-seasonal">
       <p class="col-lead"><span class="vol">Vol.03</span>不时不食。中国人的餐桌，跟着节气走。</p>
     <div class="se-grid">
-      <a class="se rv" style="--d:0s" href="season-spring.html">
+      <article class="se rv" style="--d:0s">
         <span class="wm" aria-hidden="true">春</span>
         <p class="s-en">SPRING</p>
         <h3>春 · 万物萌发</h3>
         <ul>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-cake"/></svg><b>立春</b>春饼</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-pot"/></svg><b>雨水</b>罐罐肉</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-greens"/></svg><b>惊蛰</b>炒虫豆</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-bamboo"/></svg><b>春分</b>春笋</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-cake"/></svg><b>清明</b>青团</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-greens"/></svg><b>谷雨</b>香椿</li>
+          <li>青团</li>
+          <li>香椿炒蛋</li>
+          <li>腌笃鲜</li>
+          <li>荠菜馄饨</li>
         </ul>
-        <span class="se-more">进入专栏 →</span>
-      </a>
-      <a class="se rv" style="--d:.08s" href="season-summer.html">
+      </article>
+      <article class="se rv" style="--d:.08s">
         <span class="wm" aria-hidden="true">夏</span>
         <p class="s-en">SUMMER</p>
         <h3>夏 · 消长夏</h3>
         <ul>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-rice"/></svg><b>立夏</b>立夏饭</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-greens"/></svg><b>小满</b>苦菜</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-fruit"/></svg><b>芒种</b>青梅</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-noodle"/></svg><b>夏至</b>过水面</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-eel"/></svg><b>小暑</b>黄鳝</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-lotus"/></svg><b>大暑</b>莲藕</li>
+          <li>凉皮</li>
+          <li>绿豆汤</li>
+          <li>小龙虾</li>
+          <li>酸梅汤</li>
         </ul>
-        <span class="se-more">进入专栏 →</span>
-      </a>
-      <a class="se rv" style="--d:.16s" href="season-autumn.html">
+      </article>
+      <article class="se rv" style="--d:.16s">
         <span class="wm" aria-hidden="true">秋</span>
         <p class="s-en">AUTUMN</p>
         <h3>秋 · 贴秋膘</h3>
         <ul>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-pork"/></svg><b>立秋</b>贴秋膘</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-duck"/></svg><b>处暑</b>处暑鸭</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-tea"/></svg><b>白露</b>白露茶</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-cake"/></svg><b>秋分</b>桂花糕</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-crab"/></svg><b>寒露</b>大闸蟹</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-persimmon"/></svg><b>霜降</b>柿子</li>
+          <li>大闸蟹</li>
+          <li>糖炒栗子</li>
+          <li>月饼</li>
+          <li>桂花糕</li>
         </ul>
-        <span class="se-more">进入专栏 →</span>
-      </a>
-      <a class="se rv" style="--d:.24s" href="season-winter.html">
+      </article>
+      <article class="se rv" style="--d:.24s">
         <span class="wm" aria-hidden="true">冬</span>
         <p class="s-en">WINTER</p>
         <h3>冬 · 围炉暖</h3>
         <ul>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-dumpling"/></svg><b>立冬</b>饺子</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-sausage"/></svg><b>小雪</b>腌腊肉</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-hotpot"/></svg><b>大雪</b>羊肉锅</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-tangyuan"/></svg><b>冬至</b>汤圆</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-soup"/></svg><b>小寒</b>腊八粥</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#ic-rice"/></svg><b>大寒</b>八宝饭</li>
+          <li>涮羊肉</li>
+          <li>烤红薯</li>
+          <li>饺子</li>
+          <li>八宝粥</li>
         </ul>
-        <span class="se-more">进入专栏 →</span>
-      </a>
+      </article>
     </div>
     </section>
     </div>
